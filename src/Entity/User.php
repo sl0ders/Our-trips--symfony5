@@ -6,11 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"}, message="constraints.unique.user.email")
  */
 class User implements UserInterface
 {
@@ -23,6 +26,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="constraints.user.email")
+     * @Assert\NotBlank(message="constraints.user.emailNotBlank")
      */
     private $email;
 
@@ -34,16 +39,22 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="5", minMessage="constraints.user.passwordmin")
+     * @Assert\NotBlank(message="constraints.user.passwordNotBlank")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2", max="30", minMessage="constraints.user.firstnameMin", maxMessage="firstnameMax")
+     * @Assert\NotBlank(message="constraints.user.firstnameNotBlank")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="2", max="30", minMessage="constraints.user.lastnameMin", maxMessage="constraints.user.lastnameMax")
+     * @Assert\NotBlank(message="constraints.user.lastnameNotBlank")
      */
     private $lastname;
 

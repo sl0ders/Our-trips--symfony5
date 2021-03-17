@@ -1,0 +1,50 @@
+title:
+    homepage: "Page d'acceuil"
+    login: 'Page de connection'
+    register: "Page d'enregistrement"
+
+header:
+    menu:
+        allPictures: 'Toutes nos photos'
+    log:
+        login: 'Se connecter'
+        register: "S'inscrire"
+        logout: 'Se déconnecter'
+        admin: 'Administration'
+    title: 'Nos Voyages'
+
+index:
+    title: 'Pourquoi ce site ?'
+    text: "Ce site a pour but de partager avec vous un bout de notre monde.
+            Notre planète est magnifique, surprenante mais la parcourir nécessite de l'argent et du temps. deux éléments
+            difficilement cumulables ! Certaines personnes décident d'attendre leur retraite pour voyager et d'autres se
+            laissent porter par l’envie et les moyens du moment.
+            L’envie de partager avec vous la découverte de pays époustouflants, de cultures si différentes de la notre est
+            la motivation première de ce site. Tout d’abord laissez-moi vous montrer à quel point notre pays est magnifique
+            et oui ! Inutile de faire des milliers de km pour croiser la beauté !"
+
+rightLayout:
+    title: 'Les news'
+
+leftLayout:
+    title: "Nos destinations"
+login:
+    title: 'Connection'
+    email: 'Email'
+    password: 'Mot de passe'
+    signin: 'Se connecter'
+alreadyLogin: 'Vous etes deja connecter en tant que '
+form:
+    user:
+        label:
+            email: "Adresse email"
+            password: "Mot de passe"
+            repeatPassword: "Répétez votre mot de passe"
+            firstname: "Prenom"
+            lastname: "Nom"
+
+    label:
+        submit: "Sauvegarder"
+user:
+    firstStapeSuccessfully: "Merci de vous etres inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
+

@@ -1,0 +1,4 @@
+success: "succès"
+flashes:
+    user:
+        firstStapeSuccessfully: "Merci de vous etre inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"

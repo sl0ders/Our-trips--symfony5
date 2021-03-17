@@ -50,7 +50,7 @@ class Picture
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity=city::class, inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="pictures")
      */
     private $city;
 
