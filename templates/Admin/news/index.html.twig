@@ -1,0 +1,44 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}News index{% endblock %}
+
+{% block body %}
+    <h1>News index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Created_at</th>
+                <th>Archived_at</th>
+                <th>Archived</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for news in news %}
+            <tr>
+                <td>{{ news.id }}</td>
+                <td>{{ news.title }}</td>
+                <td>{{ news.content }}</td>
+                <td>{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.archivedAt ? news.archivedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.archived ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('admin_news_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('admin_news_edit', {'id': news.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_news_new') }}">{{ "create"|trans }}</a>
+{% endblock %}

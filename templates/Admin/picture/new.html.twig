@@ -1,0 +1,12 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}New Picture{% endblock %}
+
+{% block body %}
+    <h1>Create new Picture</h1>
+
+    {{ include('Admin/picture/_form-new.html.twig') }}
+
+    <a href="{{ path('admin_picture_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+{% endblock %}

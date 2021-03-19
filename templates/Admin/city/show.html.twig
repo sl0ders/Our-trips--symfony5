@@ -1,0 +1,30 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+{% block title %}City{% endblock %}
+
+{% block body %}
+    <h1>City</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ city.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ city.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ city.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_city_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+
+    <a href="{{ path('admin_city_edit', {'id': city.id}) }}"><button class="warning"><i class="fas fa-edit"></i></button></a></a>
+
+    {{ include('Admin/city/_delete_form.html.twig') }}
+{% endblock %}

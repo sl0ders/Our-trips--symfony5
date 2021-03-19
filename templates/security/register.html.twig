@@ -4,13 +4,13 @@
     {{ "title.register"|trans }}
 {% endblock %}
 {% block body %}
-    <div class="login">
-        {{ form_start(form) }}
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.lastname) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
-        {{ form_end(form) }}
+    <div class="form-outbox">
+            {{ form_start(form) }}
+            {{ form_row(form.firstname) }}
+            {{ form_row(form.lastname) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+            {{ form_end(form) }}
     </div>
 {% endblock %}
 

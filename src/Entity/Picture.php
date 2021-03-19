@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\PictureRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
 /**
  * @ORM\Entity(repositoryClass=PictureRepository::class)
+ * @Vich\Uploadable
  */
 class Picture
 {
@@ -18,16 +25,6 @@ class Picture
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $path;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -59,9 +56,33 @@ class Picture
      */
     private $author;
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="pictures", fileNameProperty="picture.name", size="picture.size", mimeType="picture.mimeType", originalName="picture.originalName", dimensions="picture.dimensions")
+     *
+     * @var File|null
+     */
+    private $pictureFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $picture;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var DateTimeInterface|null
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->picture = new EmbeddedFile();
     }
 
     public function getId(): ?int
@@ -69,28 +90,39 @@ class Picture
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|UploadedFile|null $pictureFile
+     */
+    public function setPictureFile(?File $pictureFile = null)
     {
-        return $this->name;
+        $this->pictureFile = $pictureFile;
+
+        if (null !== $pictureFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new DateTimeImmutable();
+        }
     }
 
-    public function setName(?string $name): self
+    public function getPictureFile(): ?File
     {
-        $this->name = $name;
-
-        return $this;
+        return $this->pictureFile;
     }
 
-    public function getPath(): ?string
+    public function setPicture(EmbeddedFile $picture): void
     {
-        return $this->path;
+        $this->picture = $picture;
     }
 
-    public function setPath(string $path): self
+    public function getPicture(): ?EmbeddedFile
     {
-        $this->path = $path;
-
-        return $this;
+        return $this->picture;
     }
 
     public function getDescription(): ?string
@@ -105,24 +137,24 @@ class Picture
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getPostAt(): ?\DateTimeInterface
+    public function getPostAt(): ?DateTimeInterface
     {
         return $this->post_at;
     }
 
-    public function setPostAt(?\DateTimeInterface $post_at): self
+    public function setPostAt(?DateTimeInterface $post_at): self
     {
         $this->post_at = $post_at;
 

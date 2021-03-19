@@ -1,0 +1,14 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block body %}
+    <h1>Edit Comment</h1>
+
+    {{ include('Admin/comment/_form-new.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_comment_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+
+    {{ include('Admin/comment/_delete_form.html.twig') }}
+{% endblock %}

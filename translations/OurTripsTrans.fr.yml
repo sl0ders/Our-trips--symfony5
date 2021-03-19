@@ -2,6 +2,11 @@ title:
     homepage: "Page d'acceuil"
     login: 'Page de connection'
     register: "Page d'enregistrement"
+    admin:
+        settings: "Acceuil des parametres"
+    picture:
+        index: 'Index des photos'
+        show: 'Détail de la photo %name%'
 
 header:
     menu:
@@ -42,9 +47,48 @@ form:
             repeatPassword: "Répétez votre mot de passe"
             firstname: "Prenom"
             lastname: "Nom"
-
+    picture:
+        label:
+            download: "Telechargement d'une photo"
+            description: "Description de la photo"
+            city: "Ville de prise"
+            author: "Auteur de la photo"
+            addCity: "Ajout d'une ville"
+    city:
+        label:
+            name: "Nom de la ville"
+            description: "Description de la ville"
+            country: "Selection du pays"
+            map: "Telechargement d'une image representatif"
+            icon: "Telechargement d'une icon representatif"
     label:
         submit: "Sauvegarder"
 user:
     firstStapeSuccessfully: "Merci de vous etres inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
-
+settings:
+    manage:
+        pictures: 'Gestion des photos'
+        countries: 'Gestion des pays'
+        cities: 'Gestion des villes'
+        news: 'Gestion des news'
+        users: 'Gestion des utilisateurs'
+new:
+    picture: 'Nouvelle photo'
+picture:
+    text:
+        country: 'Pays'
+        city: 'Ville'
+        author: 'Auteur de la photo'
+        name: 'Nom de la photo'
+        description: 'Description'
+        createdAt: 'OurTripsTrans'
+        format: 'format de la photo'
+        size: 'poids de la photo'
+        dimensions: 'dimentions'
+        addPicture: 'Ajouter une photo'
+        return: "Tourner l'image de 90°"
+Save: 'Sauvegarder'
+return: 'Retour'
+edit: 'Éditer'
+delete: "Supprimer l'élément"
+create: 'Ajouter'

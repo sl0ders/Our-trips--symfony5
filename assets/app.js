@@ -7,6 +7,29 @@
 
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
+import $ from "jquery";
+import 'popper.js'
 
-// start the Stimulus application
-import './bootstrap';
+$.fn.extend({
+    toggleText: function (a, b) {
+        return this.text(this.text() === b ? a : b);
+    }
+});
+$(".addCity").click(() => {
+    let selectCity = $("#picture_city")
+    let cityform = $(".city-form")
+    cityform.toggle()
+    selectCity.toggle()
+    $('.addCity').toggleText('+', '-');
+})
+
+$(".rotate").click(() => {
+    let pictureBox = $(".detail-picture-box")
+    let picture = $(".picture-part")
+    let detailPicture = $(".detail-part")
+    picture.css("transform", "rotate(90deg)")
+    picture.css("width", "100%")
+    pictureBox.css("margin-top", "250px")
+    detailPicture.css("margin-top", "250px")
+    $('body').css("backgroud", "rgba(255,255,255,0.2)")
+})

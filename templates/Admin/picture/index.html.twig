@@ -1,0 +1,16 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+{% block title %}{{ "title.picture.index"|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ "title.picture.index"|trans }}</h1>
+
+        <div class="pictures-display">
+        {% for picture in pictures %}
+                <a href="{{ path('admin_picture_show', {'id': picture.id}) }}" class="pictures-square">
+                    <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre")}}"  alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
+                </a>
+        {% endfor %}
+            <a href="{{ path('admin_picture_new') }}" class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
+        </div>
+{% endblock %}

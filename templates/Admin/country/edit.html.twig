@@ -1,0 +1,14 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Country{% endblock %}
+
+{% block body %}
+    <h1>Edit Country</h1>
+
+    {{ include('Admin/country/_form-new.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_country_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+
+    {{ include('Admin/country/_delete_form.html.twig') }}
+{% endblock %}

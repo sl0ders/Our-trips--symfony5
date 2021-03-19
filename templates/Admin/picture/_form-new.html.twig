@@ -1,0 +1,18 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "Layout/_form-template.html.twig" %}
+{% block form_content %}
+        {{ form_start(form) }}
+        {{ form_row(form.pictureFile) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.author) }}
+        {{ form_row(form.city)}}
+        {{ form_row(form.newCity) }}
+        <button type="button" class="addCity">+</button>
+        <button>{{ button_label|default('Save'|trans) }}</button>
+        {{ form_end(form) }}
+{% endblock %}
+
+
+
+
+

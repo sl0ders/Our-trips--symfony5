@@ -19,23 +19,23 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 "label" => "form.user.label.email",
-                "attr" => ["class" => "form-register"]
+                "attr" => ["class" => "form-case"]
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'constraints.user.password.repeatIinvalid',
-                'options' => ['attr' => ['class' => 'password-field form-register']],
+                'options' => ['attr' => ['class' => 'password-field form-case']],
                 'required' => true,
                 'first_options'  => ['label' => 'form.user.label.password'],
                 'second_options' => ['label' => 'form.user.label.repeatPassword'],
             ])
             ->add('firstname', TextType::class, [
                 "label" => "form.user.label.firstname",
-                "attr" => ["class" => "form-register"]
+                "attr" => ["class" => "form-case"]
             ])
             ->add('lastname', TextType::class, [
                 "label" => "form.user.label.lastname",
-                "attr" => ["class" => "form-register"]
+                "attr" => ["class" => "form-case"]
             ])
         ->add("submit", SubmitType::class, [
             "label" => "form.label.submit"
@@ -47,7 +47,7 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             "translation_domain" => "OurTripsTrans",
-            "attr" => ["id" => "form-register"]
+            "attr" => ["class" => "form-box"]
         ]);
     }
 }

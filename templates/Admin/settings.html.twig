@@ -1,0 +1,38 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "title.admin.settings"|trans }}{% endblock %}
+{% block body %}
+    <div class="settings-box">
+        <a href="{{ path('admin_picture_index') }}" class="setting-case pictures">
+            <div class="content-case">
+                <img src="{{ asset('images/admin_picture.png') }}" width="280" alt="settings_logo_pictures">
+                <h2>{{ "settings.manage.pictures"|trans }}</h2>
+            </div>
+        </a>
+        <a href="{{ path('admin_country_index') }}" class="setting-case countries">
+            <div class="content-case">
+                <img src="{{ asset('images/admin_country.png') }}" width="200" alt="settings_logo_countries">
+                <h2>{{ "settings.manage.countries"|trans }}</h2>
+            </div>
+        </a>
+        <a href="{{ path('admin_city_index') }}" class="setting-case cities">
+            <div class="content-case">
+                <img src="{{ asset('images/admin_city.png') }}" width="200" alt="settings_logo_cities">
+                <h2>{{ "settings.manage.cities"|trans }}</h2>
+            </div>
+        </a>
+        <a href="{{ path('admin_news_index') }}" class="setting-case news">
+            <div class="content-case">
+                <img src="{{ asset('images/admin_news.png') }}" width="200" alt="settings_logo_news">
+                <h2>{{ "settings.manage.news"|trans }}</h2>
+            </div>
+        </a>
+        <a href="{{ path('admin_user_index') }}" class="setting-case users">
+            <div class="content-case">
+                <img src="{{ asset('images/admin_user.png') }}" width="200" alt="settings_logo_users">
+                <h2>{{ "settings.manage.users"|trans }}</h2>
+            </div>
+        </a>
+    </div>
+{% endblock %}

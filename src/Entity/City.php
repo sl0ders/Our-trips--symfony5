@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\CityRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=CityRepository::class)
+ * @Vich\Uploadable
  */
 class City
 {
@@ -41,18 +48,44 @@ class City
     private $pictures;
 
     /**
-     * @ORM\OneToOne(targetEntity=Map::class, inversedBy="city", cascade={"persist", "remove"})
+     * @Vich\UploadableField(mapping="maps", fileNameProperty="map.name", size="map.size", mimeType="map.mimeType", originalName="map.originalName", dimensions="map.dimensions")
+     * @var File|null
+     */
+    private $mapFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
      */
     private $map;
 
     /**
-     * @ORM\OneToOne(targetEntity=Icon::class, inversedBy="city", cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var DateTimeInterface|null
+     */
+    private $updatedAt;
+
+
+    /**
+     * @Vich\UploadableField(mapping="icons", fileNameProperty="icon.name", size="icon.size", mimeType="icon.mimeType", originalName="icon.originalName", dimensions="icon.dimensions")
+     * @var File|null
+     */
+    private $iconFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
      */
     private $icon;
 
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->map = new EmbeddedFile();
+        $this->icon = new EmbeddedFile();
     }
 
     public function getId(): ?int
@@ -126,27 +159,62 @@ class City
         return $this;
     }
 
-    public function getMap(): ?Map
+    /**
+     * @param File|UploadedFile|null $mapFile
+     */
+    public function setMapFile(?File $mapFile = null)
+    {
+        $this->mapFile = $mapFile;
+
+        if (null !== $mapFile) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getMapFile(): ?File
+    {
+        return $this->mapFile;
+    }
+
+    public function setMap(EmbeddedFile $map): void
+    {
+        $this->map = $map;
+    }
+
+    public function getMap(): ?EmbeddedFile
     {
         return $this->map;
     }
 
-    public function setMap(?Map $map): self
+    /**
+     * @param File|UploadedFile|null $iconFile
+     */
+    public function setIconFile(?File $iconFile = null)
     {
-        $this->map = $map;
+        $this->iconFile = $iconFile;
 
-        return $this;
+        if (null !== $iconFile) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
     }
 
-    public function getIcon(): ?Icon
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    public function setIcon(EmbeddedFile $icon): void
+    {
+        $this->map = $icon;
+    }
+
+    public function getIcon(): ?EmbeddedFile
     {
         return $this->icon;
     }
 
-    public function setIcon(?Icon $icon): self
+    public function __toString()
     {
-        $this->icon = $icon;
-
-        return $this;
+        return $this->name;
     }
 }

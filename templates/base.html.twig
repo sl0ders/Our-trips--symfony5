@@ -5,28 +5,30 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
     {% block javascripts %}
+        <script src="{{ asset('font-awesome/js/all.min.js') }}"></script>
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 <body>
 <div class="filter">
-    {% include "Layout/header.html.twig" %}
-    {% include 'Layout/Flashes/inspiniaFlashes.html.twig' %}
+    {% include "Layout/_header.html.twig" %}
+    {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
     <div class="main">
         <div class="left-side">
-            {% include "Layout/leftLayout.html.twig" %}
+            {% include "Layout/_leftLayout.html.twig" %}
         </div>
         <div class="center">
             {% block body %}{% endblock %}
         </div>
         <div class="right-side">
-            {% include "Layout/rightLayout.html.twig" %}
+            {% include "Layout/_rightLayout.html.twig" %}
         </div>
     </div>
 </div>
 </body>
-{% include "Layout/footer.html.twig" %}
+{% include "Layout/_footer.html.twig" %}
 </html>

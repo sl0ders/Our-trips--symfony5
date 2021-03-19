@@ -1,0 +1,12 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}New News{% endblock %}
+
+{% block body %}
+    <h1>Create new News</h1>
+
+    {{ include('Admin/news/_form-new.html.twig') }}
+
+    <a href="{{ path('admin_news_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+{% endblock %}

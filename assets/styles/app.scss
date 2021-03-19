@@ -9,11 +9,34 @@
   url("../../public/Fonts/452560bc-7196-4154-9b64-b9bb79494473.ttf") format("truetype");
 }
 
+.d-none {
+  display: none;
+}
+
+.li-unlisted {
+  list-style: none;
+}
 
 body {
   margin: 0;
   padding: 0;
   background: url("../../public/images/map_word.png");
+  display: block;
+
+  .danger {
+    background: rgba(195, 49, 49, 1);
+    border: none;
+  }
+
+  .warning {
+    background: rgb(208, 172, 57);
+    border: none;
+  }
+
+  .success {
+    background: rgb(82, 136, 38);
+    border: none;
+  }
 
   .flashes-box {
     margin-top: 20px;
@@ -41,11 +64,11 @@ body {
     }
   }
 
-  input {
+  input, select, textarea {
     height: 28px;
     border-radius: 3px;
     border: #6a788c;
-    box-shadow: 2px 2px #6a788c;
+    box-shadow: 1px 1px #6a788c;
   }
 
   button {
@@ -59,6 +82,7 @@ body {
 
     &.logout {
       background: #B0413E;
+      margin-left: 1vw;
     }
 
     &:hover {
@@ -101,7 +125,7 @@ body {
           cursor: pointer;
 
           &:hover {
-            border: #0c698d 1px solid;
+            border: #0c698d 0 solid;
             padding: 8px;
             border-radius: 5px;
             color: white;
@@ -175,7 +199,6 @@ body {
       width: 65%;
       border-left: #9da7ae 1px solid;
       border-right: #9da7ae 1px solid;
-      height: 73vh;
 
       h1 {
         font-family: 'Syne Mono', monospace;
@@ -193,28 +216,45 @@ body {
         line-height: 35px;
       }
 
-      .login {
+      /**FORM CUSTOM**/
+      .form-outbox {
         margin-top: 50px;
 
-        #form-login, #form-register {
+        .form-box {
           font-family: 'Syne Mono', monospace;
           color: white;
           border: rgba(12, 105, 141, 0.6);
           padding: 20px 50px;
-          max-width: 25%;
+          max-width: 30%;
           display: flex;
           margin: 0 auto;
           justify-content: center;
           flex-direction: column;
+          flex-wrap: wrap;
           background: rgba(12, 105, 141, 0.6);
           border-radius: 5px;
           text-align: center;
 
-          .form-register {
+          .form-case {
             width: 100%;
             display: flex;
             margin: 10px 0;
             justify-content: center;
+            flex-direction: column;
+
+            &.city-form {
+              display: none;
+            }
+          }
+
+          button {
+            width: 150px;
+            margin: 10px auto;
+
+          }
+
+          .form-input {
+            display: flex;
             flex-direction: column;
           }
 
@@ -229,13 +269,119 @@ body {
           }
 
           .signin {
-            max-width: 150px;
-            margin-top: 20px;
+            margin: 20px auto;
           }
         }
       }
+
+      /** END FORM CUSTOM **/
+
+      /** SEETINGS CUSTOM **/
+      .settings-box {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 40px;
+        flex-wrap: wrap;
+
+
+        .setting-case {
+          border: #6a788c;
+          border-radius: 5px;
+          width: 18vw;
+          height: 30vh;
+          margin: 15px;
+          text-decoration: none;
+          background: rgba(226, 226, 226, 0.5);
+
+          &:hover {
+            opacity: 0.8;
+            transition: 0.3s;
+            background: rgb(211, 213, 245);
+          }
+
+          .content-case {
+            text-align: center;
+            font-family: 'Segoe UI Black', monospace;
+            font-weight: bold;
+            padding: 10px;
+            color: black;
+          }
+        }
+      }
+
+      /** END SEETINGS**/
+
+      /** PICTURE  **/
+      /** index picture **/
+      .pictures-display {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+
+        .pictures-square {
+          margin: 10px;
+
+          &.empty {
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            border: #6a788c 3px solid;
+            text-align: center;
+            font-family: 'Syne Mono', monospace;
+            text-decoration: none;
+          }
+        }
+      }
+
+      /** end index picture **/
+
+      /**  show picture **/
+      .detail-picture-box {
+        margin-top: 50px;
+
+        .picture-part {
+          padding: 0;
+          margin: 0;
+          display: flex;
+          align-items: end;
+
+          .picture {
+            width: 100%;
+            margin: 0 auto;
+            &:hover {
+              z-index: 5;
+            }
+          }
+        }
+
+        .detail-part {
+          padding: 10px;
+          background: rgba(#6a788c, 0.8);
+          color: #FFFFFF;
+          text-align: center;
+          ul {
+            padding: 0;
+          }
+        }
+      }
+
+      button.rotate {
+        margin: 0 auto;
+      }
+
+      /** end show picture **/
+      /** END PICTURE **/
     }
+
+
   }
 }
-
+footer {
+  height: 20vh;
+}
 
