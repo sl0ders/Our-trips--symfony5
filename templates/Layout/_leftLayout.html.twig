@@ -1,2 +1,7 @@
 {% trans_default_domain "OurTripsTrans" %}
 <h1 class="title-left">{{ "leftLayout.title"|trans }}</h1>
+{% for country in countries %}
+    <div class="left-item">
+        <em><img src="{{ vich_uploader_asset(country, "iconFile") }}" alt="{{ country.name }}" class="left-icon"></em> {{ country.name }}
+    </div>
+{% endfor %}

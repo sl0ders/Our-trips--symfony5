@@ -79,10 +79,16 @@ class Picture
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=News::class, mappedBy="link")
+     */
+    private $news;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->picture = new EmbeddedFile();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +217,36 @@ class Picture
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|News[]
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setLink($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getLink() === $this) {
+                $news->setLink(null);
+            }
+        }
 
         return $this;
     }

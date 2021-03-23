@@ -1,37 +1,20 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
-{% block title %}City index{% endblock %}
+{% block title %}{{ "title.city.index"|trans }}{% endblock %}
 
 {% block body %}
-    <h1>City index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h1>{{ "title.city.index"|trans }}</h1>
+    <div class="pictures-display">
         {% for city in cities %}
-            <tr>
-                <td>{{ city.id }}</td>
-                <td>{{ city.name }}</td>
-                <td>{{ city.description }}</td>
-                <td>
-                    <a href="{{ path('admin_city_show', {'id': city.id}) }}">{{ "show"|trans }}</a>
-                    <a href="{{ path('admin_city_edit', {'id': city.id}) }}"><button class="warning"><i class="fas fa-edit"></i></button></a></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            <a class="pictures-square" href="{{ path("admin_city_show", {'id': city.id}) }}">
+                {% if city.map.name is not null %}
+                    <em>{{ city.name }}</em>
+                    <img src="{{ vich_uploader_asset(city) }}" alt="{{ city.name }}">
+                {% else %}
+                    {{ city.name }}
+                {% endif %}
+            </a>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_city_new') }}">{{ "create"|trans }}</a>
+        <a href="{{ path('admin_city_new') }}" class="pictures-square empty">{{ "city.text.addCity"|trans }}</a>
+    </div>
 {% endblock %}

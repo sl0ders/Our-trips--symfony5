@@ -1,5 +1,15 @@
 {% trans_default_domain "OurTripsTrans" %}
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{% extends "Layout/_form-template.html.twig" %}
+{% block form_content %}
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.archived) }}
+    {{ form_row(form.link) }}
+    {{ form_row(form.addPicture) }}
+    <button type="button" class="addPicture"><i class="fas fa-plus"></i></button>
     <button class="btn">{{ button_label|default('Save'|trans) }}</button>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+

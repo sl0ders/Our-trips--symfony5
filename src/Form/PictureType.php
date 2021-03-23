@@ -27,7 +27,8 @@ class PictureType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 "label" => "form.picture.label.description",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case", "placeholder" => "picture.placeholder.description"],
+                "required" => false
             ])
             ->add('city', EntityType::class, [
                 "class" => City::class,

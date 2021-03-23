@@ -6,7 +6,7 @@
 {% block body %}
     <h1>Create new User</h1>
 
-    {{ include('Admin/user/_form-new.html.twig') }}
+    {{ include('Admin/user/_form.html.twig') }}
 
-    <a href="{{ path('admin_user_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+    <a href="{{ path('admin_user_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 {% endblock %}

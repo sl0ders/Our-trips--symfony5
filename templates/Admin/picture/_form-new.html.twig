@@ -7,7 +7,7 @@
         {{ form_row(form.author) }}
         {{ form_row(form.city)}}
         {{ form_row(form.newCity) }}
-        <button type="button" class="addCity">+</button>
+        <button type="button" class="addCity"><i class="fas fa-plus"></i></button>
         <button>{{ button_label|default('Save'|trans) }}</button>
         {{ form_end(form) }}
 {% endblock %}

@@ -1,11 +1,11 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
-{% block title %}New City{% endblock %}
+{% block title %}{{ "title.city.new"|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Create new City</h1>
+    <h1>{{ "title.city.new"|trans }}</h1>
 
-    {{ include('Admin/city/_form-new.html.twig') }}
+    {{ include('Admin/city/_form.html.twig') }}
 
-    <a href="{{ path('admin_city_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+    <a href="{{ path('admin_city_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 {% endblock %}

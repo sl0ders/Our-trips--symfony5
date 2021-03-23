@@ -6,9 +6,9 @@
 {% block body %}
     <h1>Edit News</h1>
 
-    {{ include('Admin/news/_form-new.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/news/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('admin_news_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+    <a href="{{ path('admin_news_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 
     {{ include('Admin/news/_delete_form.html.twig') }}
 {% endblock %}

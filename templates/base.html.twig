@@ -15,20 +15,24 @@
 </head>
 <body>
 <div class="filter">
-    {% include "Layout/_header.html.twig" %}
-    {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
+    <div class="header">
+        {{ render(controller('App\\Controller\\LayoutBundleController::headerAction')) }}
+        {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
+    </div>
     <div class="main">
         <div class="left-side">
-            {% include "Layout/_leftLayout.html.twig" %}
+            {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
         </div>
         <div class="center">
             {% block body %}{% endblock %}
         </div>
         <div class="right-side">
-            {% include "Layout/_rightLayout.html.twig" %}
+            {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
         </div>
+    </div>
+    <div class="footer">
+        {{ render(controller('App\\Controller\\LayoutBundleController::footerAction')) }}
     </div>
 </div>
 </body>
-{% include "Layout/_footer.html.twig" %}
 </html>

@@ -21,15 +21,24 @@ class CountryType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 "label" => "form.country.label.description",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case","placeholder" => "form.country.placeholder.description"],
+                "required" => false
             ])
             ->add('mapFile', VichFileType::class, [
                 "label" => "form.country.label.map",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case"],
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'asset_helper' => false,
             ])
             ->add('iconFile', VichFileType::class, [
                 "label" => "form.country.label.icon",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case"],
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'asset_helper' => false,
             ])
         ;
     }

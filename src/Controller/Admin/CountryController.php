@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Country;
 use App\Form\CountryType;
+use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
+use App\Repository\PictureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,12 +57,15 @@ class CountryController extends AbstractController
     /**
      * @Route("/{id}", name="admin_country_show", methods={"GET"})
      * @param Country $country
+     * @param PictureRepository $pictureRepository
      * @return Response
      */
-    public function show(Country $country): Response
+    public function show(Country $country, PictureRepository $pictureRepository): Response
     {
+        $pictures = $pictureRepository->findByCountry($country);
         return $this->render('Admin/country/show.html.twig', [
             'country' => $country,
+            "pictures" => $pictures
         ]);
     }
 

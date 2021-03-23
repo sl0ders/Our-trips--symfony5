@@ -1,38 +1,22 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Country index{% endblock %}
+{% block title %}{{ "title.country.index"|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Country index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h1>{{ "title.country.index"|trans }}</h1>
+    <div class="pictures-display">
         {% for country in countries %}
-            <tr>
-                <td>{{ country.id }}</td>
-                <td>{{ country.name }}</td>
-                <td>{{ country.description }}</td>
-                <td>
-                    <a href="{{ path('admin_country_show', {'id': country.id}) }}">show</a>
-                    <a href="{{ path('admin_country_edit', {'id': country.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            <a class="pictures-square" href="{{ path('admin_country_show', {'id': country.id}) }}">
+                {% if country.map.name is not null %}
+                    <em>{{ country.name }}</em>
+                    <img src="{{ vich_uploader_asset(country)|imagine_filter("carre") }}" alt="{{ country.name }}">
+                {% else %}
+                    {{ country.name }}
+                {% endif %}
+            </a>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_country_new') }}">{{ "create"|trans }}</a>
+        <a href="{{ path('admin_country_new') }}"
+           class="pictures-square empty">{{ "country.text.addCountry"|trans }}</a>
+    </div>
 {% endblock %}

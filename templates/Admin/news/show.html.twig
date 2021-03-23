@@ -1,43 +1,44 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}News{% endblock %}
+{% block title %}{{ "title.news.show"|trans({"%title%": news.title}) }}{% endblock %}
 
 {% block body %}
-    <h1>News</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ news.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ news.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ news.content }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Archived_at</th>
-                <td>{{ news.archivedAt ? news.archivedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Archived</th>
-                <td>{{ news.archived ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('admin_news_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
-
-    <a href="{{ path('admin_news_edit', {'id': news.id}) }}"><button class="warning"><i class="fas fa-edit"></i></button></a></a>
-
-    {{ include('Admin/news/_delete_form.html.twig') }}
+    <h1>{{ "title.news.show"|trans({"%title%": news.title}) }}</h1>
+    <div class="news-outbox">
+        <h2>{{ news.title }}</h2>
+        <hr>
+        <div class="news-box">
+            <div class="news-information">
+                <p>{{ news.content }}</p>
+                <h3>{{ "news.text.detail"|trans }}</h3>
+                {{ "news.text.createdAt"| trans }} {{ news.createdAt|date("d/m/Y H:i:s") }}
+                {% if news.archived %}
+                    {{ "news.text.archived"| trans }} <i class="fas fa-check"></i>
+                {% else %}
+                    {{ "news.text.archived"| trans }} <i class="fas fa-times"></i>
+                {% endif %}
+                <br>
+            </div>
+            <div class="news-picture">
+                {% if news.link.picture is defined %}
+                    <div class="pictures-display">
+                        <div class="pictures-square">
+                            <img src="{{ vich_uploader_asset(news.link)|imagine_filter("carre") }}"
+                                 alt="{{ news.title }}">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="button">
+            <a href="{{ path('admin_news_index') }}">
+                <button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button>
+            </a>
+            {{ include('Admin/news/_delete_form.html.twig') }}
+            <a href="{{ path('admin_news_edit', {'id': news.id}) }}">
+                <button class="warning"><i class="fas fa-edit"></i></button>
+            </a>
+        </div>
+    </div>
 {% endblock %}

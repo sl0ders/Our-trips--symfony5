@@ -15,12 +15,27 @@ $.fn.extend({
         return this.text(this.text() === b ? a : b);
     }
 });
+
+$.fn.extend({
+    addPanel: function (selectField, form, button) {
+        if (selectField.hasClass("greyHash")) {
+            selectField.removeAttr("disabled", "disabled")
+            selectField.removeClass("greyHash")
+        } else {
+            selectField.attr("disabled", "disabled")
+            selectField.addClass("greyHash")
+        }
+        form.toggle()
+        button.toggleText('+', '-');
+    }
+});
+
+$(".addPicture").click(() => {
+    $(".addPicture").addPanel($("#news_link"), $("#news_addPicture"), $('.addPicture'))
+})
+
 $(".addCity").click(() => {
-    let selectCity = $("#picture_city")
-    let cityform = $(".city-form")
-    cityform.toggle()
-    selectCity.toggle()
-    $('.addCity').toggleText('+', '-');
+    $(".addCity").addPanel($("#picture_city"), $(".city-form"), $('.addCity'))
 })
 
 $(".rotate").click(() => {

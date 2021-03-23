@@ -7,6 +7,28 @@ title:
     picture:
         index: 'Index des photos'
         show: 'Détail de la photo %name%'
+        new: "Ajout d'une nouvelle photo"
+        edit: "Édition de l'image %name%"
+    country:
+        index: 'Index des pays'
+        show: 'Détail du pays %name%'
+        edit: 'Édition du pays %name%'
+        new: "Ajout d'un pays"
+    city:
+        index: 'Index des villes'
+        show: 'Détail de la ville %name%'
+        edit: 'Édition de la ville %name%'
+        new: "Creation d'une nouvelle ville"
+    news:
+        create: "Creation d'une nouvelle news"
+        index: 'Index des news'
+        show: 'Détail de la news %title%'
+        edit: 'Édition de la news %title%'
+    user:
+        create: "Creation d'un nouvelle utilisateur"
+        index: 'Index des utilisateurs'
+        show: "Détail de l'utilisateur %firstname% %lastname%"
+        edit: "Édition de l'utilisateur %firstname% %lastname%"
 
 header:
     menu:
@@ -47,6 +69,8 @@ form:
             repeatPassword: "Répétez votre mot de passe"
             firstname: "Prenom"
             lastname: "Nom"
+            show: "Detail de l'utilisateur"
+            edit: "Édition de l'utilisateur"
     picture:
         label:
             download: "Telechargement d'une photo"
@@ -54,6 +78,15 @@ form:
             city: "Ville de prise"
             author: "Auteur de la photo"
             addCity: "Ajout d'une ville"
+    country:
+        placeholder:
+            description: "Entrez une courte description"
+        label:
+            name: "Nom du pays"
+            description: "Description du pays"
+            country: "Selection du pays"
+            map: "Telechargement d'une image representatif"
+            icon: "Telechargement d'une icon representatif"
     city:
         label:
             name: "Nom de la ville"
@@ -63,6 +96,18 @@ form:
             icon: "Telechargement d'une icon representatif"
     label:
         submit: "Sauvegarder"
+
+    news:
+        label:
+            title: "Titre de la news"
+            content: "Contenu de la news"
+            archived: "Visible ?"
+            show: 'Visualiser'
+            edit: 'Éditer'
+            linked: "Lié la news a une photo"
+            addPicture: "Ajout d'une photo"
+        placeholder:
+            content: "Contenu de la news"
 user:
     firstStapeSuccessfully: "Merci de vous etres inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
 settings:
@@ -75,6 +120,8 @@ settings:
 new:
     picture: 'Nouvelle photo'
 picture:
+    placeholder:
+        description: "Entrez une courte description"
     text:
         country: 'Pays'
         city: 'Ville'
@@ -87,8 +134,36 @@ picture:
         dimensions: 'dimentions'
         addPicture: 'Ajouter une photo'
         return: "Tourner l'image de 90°"
+        countryPictures: 'Photos du pays'
+        cityPictures: 'Photos de la ville'
 Save: 'Sauvegarder'
 return: 'Retour'
 edit: 'Éditer'
 delete: "Supprimer l'élément"
 create: 'Ajouter'
+country:
+    text:
+        addCountry: "Ajout d'un pays"
+city:
+    text:
+        addCity: "Ajout d'une ville"
+datatable:
+    news:
+        content: 'Contenu de la news'
+        title: 'Titre de la news'
+        createdAt: 'Créé le :'
+        archived: 'Visible ?'
+        archivedAt: "Archivé le :"
+    user:
+        createdAt: "Date d'inscription"
+        firstname: 'Prenom'
+        lastname: 'Nom de familler'
+        email: 'Adresse email'
+        role: 'Role'
+yes: 'Oui'
+no: 'Non'
+news:
+    text:
+        detail: 'détail de la news'
+        createdAt: 'Date de création :'
+        archived: "Visibible ? : "

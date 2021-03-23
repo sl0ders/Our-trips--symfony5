@@ -50,6 +50,7 @@ class SecurityController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setCreatedAt(new \DateTime());
             $user->setRoles(["ROLE_USER"]);
             $user->setPassword($hash);
             $em->persist($user);

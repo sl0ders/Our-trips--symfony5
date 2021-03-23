@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @Vich\Uploadable
  */
 class News
 {
@@ -47,6 +49,11 @@ class News
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Picture::class, inversedBy="news")
+     */
+    private $link;
 
     public function getId(): ?int
     {
@@ -121,6 +128,18 @@ class News
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getLink(): ?Picture
+    {
+        return $this->link;
+    }
+
+    public function setLink(?Picture $link): self
+    {
+        $this->link = $link;
 
         return $this;
     }

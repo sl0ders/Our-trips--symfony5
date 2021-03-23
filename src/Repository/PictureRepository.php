@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Picture|null findOneBy(array $criteria, array $orderBy = null)
  * @method Picture[]    findAll()
  * @method Picture[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method findByCity()
  */
 class PictureRepository extends ServiceEntityRepository
 {
@@ -19,32 +20,13 @@ class PictureRepository extends ServiceEntityRepository
         parent::__construct($registry, Picture::class);
     }
 
-    // /**
-    //  * @return Picture[] Returns an array of Picture objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCountry($country)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder("p")
+            ->leftJoin("p.city", "city")->addSelect("city")
+            ->leftJoin("city.country", "country")->addSelect("country")
+            ->andWhere("country = :country")
+            ->setParameter(":country", $country);
+       return $qb->getQuery()->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Picture
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

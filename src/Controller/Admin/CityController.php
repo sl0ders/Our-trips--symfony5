@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\City;
 use App\Form\CityType;
 use App\Repository\CityRepository;
+use App\Repository\PictureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,11 +56,14 @@ class CityController extends AbstractController
     /**
      * @Route("/{id}", name="admin_city_show", methods={"GET"})
      * @param City $city
+     * @param PictureRepository $pictureRepository
      * @return Response
      */
-    public function show(City $city): Response
+    public function show(City $city, PictureRepository $pictureRepository): Response
     {
+        $pictures = $pictureRepository->findByCity($city);
         return $this->render('Admin/city/show.html.twig', [
+            "pictures" => $pictures,
             'city' => $city,
         ]);
     }

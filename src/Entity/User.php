@@ -68,6 +68,11 @@ class User implements UserInterface
      */
     private $news;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -242,5 +247,17 @@ class User implements UserInterface
     public function __toString(): string
     {
         return $this->firstname." ". $this->lastname;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

@@ -6,9 +6,10 @@
     <div class="detail-picture-box">
         <div class="picture-part">
             <img class="picture" src="{{ vich_uploader_asset(picture)|imagine_filter("large") }}" alt="{{ picture.picture.name }}">
+            <button type="button" class="rotate success" title="{{ "picture.text.return"|trans }}"><i class="fas fa-undo-alt"></i></button>
         </div>
         <div class="detail-part">
-            <h2>{{ "title.picture.show"|trans({"%name%": picture.picture.name} ) }} <button type="button" class="rotate success" title="{{ "picture.text.return"|trans }}"><i class="fas fa-sync"></i></button></h2>
+            <h2>{{ "title.picture.show"|trans({"%name%": picture.picture.name} ) }}</h2>
             <ul class="li-unlisted">
                 <li>{{ "picture.text.country"|trans }}
                     : {{ picture.city.country ? picture.city.country : "null" }}</li>

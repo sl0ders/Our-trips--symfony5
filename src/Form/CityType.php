@@ -33,11 +33,19 @@ class CityType extends AbstractType
             ])
             ->add('mapFile', VichFileType::class, [
                 "label" => "form.city.label.map",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case"],
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'asset_helper' => false,
             ])
             ->add('iconFile', VichFileType::class, [
                 "label" => "form.city.label.icon",
-                "attr" => ["class" => "form-case"]
+                "attr" => ["class" => "form-case"],
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'asset_helper' => false,
             ])
         ;
     }

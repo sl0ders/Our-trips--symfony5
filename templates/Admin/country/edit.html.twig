@@ -1,14 +1,14 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Country{% endblock %}
+{% block title %}{{ "title.country.edit"|trans({"%name%": country.name}) }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Country</h1>
+    <h1>{{ "title.country.edit"|trans({"%name%": country.name}) }}</h1>
 
-    {{ include('Admin/country/_form-new.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/country/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('admin_country_index') }}"><button class="warning"><img src="{{ asset('images/return.png') }}" alt="" width="20"></button></a>
+    <a href="{{ path('admin_country_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 
     {{ include('Admin/country/_delete_form.html.twig') }}
 {% endblock %}

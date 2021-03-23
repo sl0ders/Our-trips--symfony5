@@ -2,9 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Datatable\newsDatatable;
+use App\Datatable\UserDatatable;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Sg\DatatablesBundle\Datatable\DatatableFactory;
+use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,15 +19,35 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    public function __construct(DatatableFactory $factory, DatatableResponse $response)
+    {
+        $this->factory = $factory;
+        $this->response = $response;
+    }
+
     /**
      * @Route("/", name="admin_user_index", methods={"GET"})
      * @param UserRepository $userRepository
+     * @param Request $request
      * @return Response
+     * @throws \Exception
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+        $isAjax = $request->isXmlHttpRequest();
+        $datatable = $this->factory->create(UserDatatable::class);
+        $datatable->buildDatatable();
+
+        if ($isAjax) {
+            $responseService = $this->response;
+            $responseService->setDatatable($datatable);
+            $responseService->getDatatableQueryBuilder();
+
+            return $responseService->getResponse();
+        }
         return $this->render('Admin/user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            "datatable" => $datatable
         ]);
     }
 

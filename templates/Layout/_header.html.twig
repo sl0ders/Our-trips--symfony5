@@ -2,8 +2,8 @@
 <nav>
     <div class="navbar">
         <div class="menu">
-            <a class="logoHome" href="{{ path('home') }}"><img src="{{ asset('images/home.png') }}" alt="homePage" width="40"></a>
-            <a class="nav-items">{{ "header.menu.allPictures"|trans }}</a>
+            <a class="logoHome nav-items" href="{{ path('home') }}"><img src="{{ asset('images/home.png') }}" alt="homePage" width="40"></a>
+            <a class="nav-items"><div>{{ "header.menu.allPictures"|trans }}</div></a>
         </div>
         <div class="log">
             {% if not app.user %}
