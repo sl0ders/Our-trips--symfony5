@@ -48,3 +48,4 @@ $(".rotate").click(() => {
     detailPicture.css("margin-top", "250px")
     $('body').css("backgroud", "rgba(255,255,255,0.2)")
 })
+

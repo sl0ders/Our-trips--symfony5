@@ -1,2 +1,18 @@
 {% trans_default_domain "OurTripsTrans" %}
 <h1 class="title-right">{{ "rightLayout.title"|trans }}</h1>
+<hr>
+<div class="list-items">
+    {% for new in news %}
+            <div class="box">
+                <h3 class="box-title">{{ new.title }}</h3> <em></em>
+                <div class="box-content">
+                    <p>{{ new.content }}</p>
+                </div>
+                <div class="footer">
+                    <em class="date">{{ new.createdAt|date("d/m/Y H:i:s") }}</em>
+                    <img src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}" alt="{{ new.link.picture.name }}" width="200">
+                </div>
+            </div>
+    {% endfor %}
+</div>
+

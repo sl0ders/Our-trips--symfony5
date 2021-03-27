@@ -1,7 +1,23 @@
 {% trans_default_domain "OurTripsTrans" %}
 <h1 class="title-left">{{ "leftLayout.title"|trans }}</h1>
-{% for country in countries %}
-    <div class="left-item">
-        <em><img src="{{ vich_uploader_asset(country, "iconFile") }}" alt="{{ country.name }}" class="left-icon"></em> {{ country.name }}
-    </div>
-{% endfor %}
+<hr>
+<div class="list-items">
+    {% for country in countries %}
+        <button type="button" class="left-item country" id="{{ country.id }}">
+            <img src="{{ vich_uploader_asset(country, "iconFile") }}" alt="{{ country.name }}" class="left-icon"
+                 width="30"><em>{{ country.name }}</em>
+        </button>
+        {% for city in country.cities %}
+            <button type="button" class="left-item city">
+                <img src="{{ vich_uploader_asset(city, "iconFile") }}" alt="{{ city.name }}" class="left-icon"
+                     width="30"><em>{{ city.name }}</em>
+            </button>
+        {% endfor %}
+    {% endfor %}
+</div>
+<script>
+    function getCity() {
+        let cities = $(".city").data("city")
+        cities.toggle()
+    }
+</script>

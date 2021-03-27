@@ -48,27 +48,32 @@ class UserDatatable extends \Sg\DatatablesBundle\Datatable\AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "50px"
-            ])->add("firstname", Column::class, [
+            ])
+            ->add("firstname", Column::class, [
                 "title" => $this->translator->trans("datatable.user.firstname", [], "OurTripsTrans"),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "125px"
-            ])->add("lastname", Column::class, [
+            ])
+            ->add("lastname", Column::class, [
                 'title' => $this->translator->trans("datatable.user.lastname", [], "OurTripsTrans"),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "140px"
-            ])->add("email", Column::class, [
+            ])
+            ->add("email", Column::class, [
                 'title' => $this->translator->trans("datatable.user.email", [], "OurTripsTrans"),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "125px"
-            ])->add("roles", Column::class, [
+            ])
+            ->add("roles", Column::class, [
                 'title' => $this->translator->trans("datatable.user.role", [], "OurTripsTrans"),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "125px"
-            ])->add("createdAt", DateTimeColumn::class, [
+            ])
+            ->add("createdAt", DateTimeColumn::class, [
                 'title' => $this->translator->trans("datatable.user.createdAt", [], "OurTripsTrans"),
                 'searchable' => true,
                 'orderable' => true,

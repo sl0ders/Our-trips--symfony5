@@ -28,8 +28,9 @@ body {
   display: block;
 
   .filter {
-    background: rgba(148, 175, 200,0.5);
+    background: rgba(148, 175, 200, 0.5);
   }
+
   .danger {
     background: rgba(195, 49, 49, 1);
     border: none;
@@ -358,6 +359,7 @@ body {
             font-size: 1.2em;
             z-index: 7;
           }
+
           img {
             text-align: center;
             max-width: 15vw;
@@ -388,6 +390,7 @@ body {
               background: rgba(#6a788c, 0.5);
             }
           }
+
           &:hover {
             background: rgba(#6a788c, 0.5);
           }
@@ -455,9 +458,11 @@ body {
         border: rgba(#5eb5e0, 0.8);
         background: rgba(12, 105, 141, 0.6);
         text-align: center;
+
         .map-country {
           width: 12vw;
         }
+
         .icon-country {
           width: 2vw;
         }
@@ -534,9 +539,73 @@ body {
         }
       }
     }
-    .left-item {
-      .left-icon {
-        width: 20%;
+
+    .left-side {
+      .list-items {
+        margin-top: 2em;
+
+        .left-item {
+          border: transparent;
+          vertical-align: center;
+          text-align: left;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+
+          &.country {
+            width: 250px;
+            height: 50px;
+            margin: 15px 150px 0 0;
+          }
+
+          &.city {
+            width: 180px;
+            height: 35px;
+            margin: 15px 70px;
+          }
+
+          .left-icon {
+            width: 30px;
+            height: 30px;
+          }
+
+          em {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+
+    .right-side {
+      .box {
+        margin: 10px;
+        border: transparent 2px solid;
+        border-radius: 10px;
+        text-align: center;
+        background: rgba(white, 0.5);
+        padding: 10px;
+        min-height: 200px;
+
+        .box-title {
+          font-weight: bold;
+        }
+
+        .box-content {
+          word-wrap: break-word
+        }
+
+        .footer {
+          width: 100%;
+
+          .date {
+            text-align: right;
+            font-size: 0.8em;
+          }
+
+          img {
+            text-align: left;
+          }
+        }
       }
     }
   }
