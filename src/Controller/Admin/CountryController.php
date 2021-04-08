@@ -12,16 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/country")
- */
+#[Route('/admin/country')]
 class CountryController extends AbstractController
 {
     /**
-     * @Route("/", name="admin_country_index", methods={"GET"})
      * @param CountryRepository $countryRepository
      * @return Response
      */
+    #[Route('/',name: 'admin_country_index', methods: ["GET"])]
     public function index(CountryRepository $countryRepository): Response
     {
         return $this->render('Admin/country/index.html.twig', [
@@ -30,10 +28,10 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_country_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
+    #[Route('/new',name: 'admin_country_new', methods: ["GET","POST"])]
     public function new(Request $request): Response
     {
         $country = new Country();
@@ -55,11 +53,11 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_country_show", methods={"GET"})
      * @param Country $country
      * @param PictureRepository $pictureRepository
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_country_show', methods: ["GET"])]
     public function show(Country $country, PictureRepository $pictureRepository): Response
     {
         $pictures = $pictureRepository->findByCountry($country);
@@ -70,11 +68,11 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_country_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Country $country
      * @return Response
      */
+    #[Route('/{id}/edit',name: 'admin_country_edit', methods: ["GET","POST"])]
     public function edit(Request $request, Country $country): Response
     {
         $form = $this->createForm(CountryType::class, $country);
@@ -93,11 +91,11 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_country_delete", methods={"DELETE"})
      * @param Request $request
      * @param Country $country
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_country_delete', methods: ["DELETE"])]
     public function delete(Request $request, Country $country): Response
     {
         if ($this->isCsrfTokenValid('delete'.$country->getId(), $request->request->get('_token'))) {
@@ -105,7 +103,6 @@ class CountryController extends AbstractController
             $entityManager->remove($country);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('admin_country_index');
     }
 }

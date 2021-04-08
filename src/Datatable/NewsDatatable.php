@@ -13,7 +13,7 @@ use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
 use Sg\DatatablesBundle\Datatable\Style;
 
-class newsDatatable extends AbstractDatatable
+class NewsDatatable extends AbstractDatatable
 {
     /**
      * @param array $options

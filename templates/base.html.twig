@@ -3,7 +3,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="./images/favicon.ico"/>
     <title>{% block title %}{% endblock %}</title>
+
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
         {{ encore_entry_link_tags('app') }}

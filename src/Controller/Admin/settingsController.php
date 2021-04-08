@@ -11,13 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class settingsController
  * @package App\Controller\Admin
- * @Route("/admin")
  */
+#[Route('/admin')]
 class settingsController extends AbstractController
 {
-    /**
-     * @Route("/settings", name="admin_settings_index")
-     */
+    #[Route('/settings',name: 'admin_settings_index')]
     public function index(): Response
     {
         return $this->render("Admin/settings.html.twig");

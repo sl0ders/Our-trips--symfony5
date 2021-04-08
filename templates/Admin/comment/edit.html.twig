@@ -6,7 +6,7 @@
 {% block body %}
     <h1>Edit Comment</h1>
 
-    {{ include('Admin/comment/_form-new.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/comment/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('admin_comment_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 

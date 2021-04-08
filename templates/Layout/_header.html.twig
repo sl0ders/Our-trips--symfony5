@@ -1,9 +1,13 @@
 {% trans_default_domain "OurTripsTrans" %}
-<nav>
+<nav id="nav">
     <div class="navbar">
         <div class="menu">
-            <a class="logoHome nav-items" href="{{ path('home') }}"><img src="{{ asset('images/home.png') }}" alt="homePage" width="40"></a>
-            <a class="nav-items"><div>{{ "header.menu.allPictures"|trans }}</div></a>
+            <a class="logoHome nav-items" href="{{ path('home') }}">
+                <img src="{{ asset('images/home.png') }}" alt="homePage" width="40">
+            </a>
+            <a href="{{ path('public_picture_index') }}" class="nav-items">
+                <button>{{ "header.menu.allPictures"|trans }}</button>
+            </a>
         </div>
         <div class="log">
             {% if not app.user %}
@@ -14,6 +18,9 @@
                     <button class="nav-items">{{ "header.log.register"|trans }}</button>
                 </a>
             {% else %}
+                <a href="{{ path('app_show', {"id": app.user.id}) }}" class="nav-items">
+                    <button>{{ "header.log.profile"|trans }}</button>
+                </a>
                 {% if is_granted("ROLE_ADMIN") %}
                     <a href="{{ path('admin_settings_index') }}" class="nav-items">
                         <button>{{ "header.log.admin"|trans }}</button>

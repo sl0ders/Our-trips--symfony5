@@ -4,13 +4,19 @@
 
 {% block body %}
     <h1>{{ "title.picture.index"|trans }}</h1>
-
+    <div class="form-outbox">
+        {{ form_start(form) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.city) }}
+        {{ form_end(form) }}
+    </div>
         <div class="pictures-display">
-        {% for picture in pictures %}
+        {% for picture in pagination %}
                 <a href="{{ path('admin_picture_show', {'id': picture.id}) }}" class="pictures-square">
                     <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre")}}"  alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
                 </a>
         {% endfor %}
             <a href="{{ path('admin_picture_new') }}" class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
         </div>
+        {{ knp_pagination_render(pagination) }}
 {% endblock %}

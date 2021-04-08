@@ -1,0 +1,38 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if city is defined %}
+        {{ "title.picture.indexCity"|trans({"%city%": city.name}) }}
+    {% elseif country is defined %}
+        {{ "title.picture.indexCountry"|trans({"%country%": country.name}) }}
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="form-outbox">
+        {{ form_start(form) }}
+        {{ form_row(form.country) }}
+        {{ form_row(form.city) }}
+        {{ form_end(form) }}
+    </div>
+    {% if city is defined %}
+        <h1>{{ "title.picture.indexCity"|trans({"%city%": city.name}) }}</h1>
+    {% elseif country is defined %}
+        <h1>{{ "title.picture.indexCountry"|trans({"%country%": country.name}) }}</h1>
+    {% endif %}
+
+    <div class="pictures-display">
+        {% for picture in pagination %}
+            <a href="{{ path('public_picture_show', {'id': picture.id}) }}" class="pictures-square">
+                <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
+                     alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
+            </a>
+        {% endfor %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('admin_picture_new') }}"
+               class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
+        {% endif %}
+
+    </div>
+    {{ knp_pagination_render(pagination) }}
+{% endblock %}

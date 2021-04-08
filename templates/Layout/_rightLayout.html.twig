@@ -10,7 +10,7 @@
                 </div>
                 <div class="footer">
                     <em class="date">{{ new.createdAt|date("d/m/Y H:i:s") }}</em>
-                    <img src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}" alt="{{ new.link.picture.name }}" width="200">
+                    <a href="{{ path('public_picture_show', {'id': new.link.id}) }}"><img src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}" alt="{{ new.link.picture.name }}" width="200"></a>
                 </div>
             </div>
     {% endfor %}

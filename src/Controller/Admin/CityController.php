@@ -11,16 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/city")
- */
+#[Route('/admin/city')]
 class CityController extends AbstractController
 {
     /**
-     * @Route("/", name="admin_city_index", methods={"GET"})
      * @param CityRepository $cityRepository
      * @return Response
      */
+    #[Route('/', name: 'admin_city_index')]
     public function index(CityRepository $cityRepository): Response
     {
         return $this->render('Admin/city/index.html.twig', [
@@ -29,10 +27,10 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_city_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
+    #[Route('/new',name: 'admin_city_new', methods: ["GET","POST"])]
     public function new(Request $request): Response
     {
         $city = new City();
@@ -54,11 +52,11 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_city_show", methods={"GET"})
      * @param City $city
      * @param PictureRepository $pictureRepository
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_city_show', methods: ["GET"])]
     public function show(City $city, PictureRepository $pictureRepository): Response
     {
         $pictures = $pictureRepository->findByCity($city);
@@ -69,11 +67,11 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_city_edit", methods={"GET","POST"})
      * @param Request $request
      * @param City $city
      * @return Response
      */
+    #[Route('/{id}/edit',name: 'admin_city_edit', methods: ["GET","POST"])]
     public function edit(Request $request, City $city): Response
     {
         $form = $this->createForm(CityType::class, $city);
@@ -92,11 +90,11 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_city_delete", methods={"DELETE"})
      * @param Request $request
      * @param City $city
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_city_delete', methods: ["DELETE"])]
     public function delete(Request $request, City $city): Response
     {
         if ($this->isCsrfTokenValid('<delete'.$city->getId(), $request->request->get('_token'))) {

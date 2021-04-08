@@ -1,0 +1,20 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "title.user.edit"|trans }}{% endblock %}
+
+{% block body %}
+    <div class="form-outbox">
+        <h1>{{ "title.user.edit"|trans }}</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.return, {"attr": {"class": "return"}}) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+
+

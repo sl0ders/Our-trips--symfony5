@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PictureRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -16,6 +18,7 @@ use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 /**
  * @ORM\Entity(repositoryClass=PictureRepository::class)
  * @Vich\Uploadable
+ * @ApiResource()
  */
 class Picture
 {
@@ -60,7 +63,9 @@ class Picture
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="pictures", fileNameProperty="picture.name", size="picture.size", mimeType="picture.mimeType", originalName="picture.originalName", dimensions="picture.dimensions")
-     *
+     * @Assert\File(
+     *     maxSize = "16M",
+     * )
      * @var File|null
      */
     private $pictureFile;

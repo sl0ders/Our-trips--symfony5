@@ -1,0 +1,24 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "Email/template.html.twig" %}
+
+{% block title %}
+    {% if subscribe is defined %}
+    {% endif %}
+    {% if changePassword is defined %}
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if subscribe is defined %}
+        {{ "email.text.subscribe"|trans({"%firstname%" : user.firstname, "%lastname%" : user.lastname, "%email%" : user.email}) }}
+        <a href="{{"https://127.0.0.1:8000"~path('user_change_status', {"id" : user.id}) }}"><button class="primary">{{ "validate"|trans }}</button></a>
+    {% endif %}
+
+    {% if changePassword is defined %}
+        {{ "email.text.changePassword"|trans({"%firstname%" : user.firstname, "%lastname%" : user.lastname}) }}
+        <a href="{{"https://127.0.0.1:8000"~path('user_change_password', {"id" : user.id}) }}"><button class="primary">{{ "validate"|trans }}</button></a>
+    {% endif %}
+{% endblock %}
+
+

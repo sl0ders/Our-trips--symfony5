@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CountryRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -16,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=CountryRepository::class)
  * @Vich\Uploadable
+ * @ApiResource()
  */
 class Country
 {

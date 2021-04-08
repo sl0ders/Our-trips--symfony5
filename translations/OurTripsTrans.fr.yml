@@ -9,6 +9,8 @@ title:
         show: 'Détail de la photo %name%'
         new: "Ajout d'une nouvelle photo"
         edit: "Édition de l'image %name%"
+        indexCity: 'Photo de %city%'
+        indexCountry: 'Photo de %country%'
     country:
         index: 'Index des pays'
         show: 'Détail du pays %name%'
@@ -27,8 +29,14 @@ title:
     user:
         create: "Creation d'un nouvelle utilisateur"
         index: 'Index des utilisateurs'
-        show: "Détail de l'utilisateur %firstname% %lastname%"
-        edit: "Édition de l'utilisateur %firstname% %lastname%"
+        show: "Détail de mon profile"
+        edit: "Édition du profil"
+        changePassword: 'Modification du mot de passe'
+    comment:
+        header: 'Commentaire'
+        index: 'Index des commentaires'
+    comments:
+        index: 'OurTripsTrans'
 
 header:
     menu:
@@ -38,6 +46,7 @@ header:
         register: "S'inscrire"
         logout: 'Se déconnecter'
         admin: 'Administration'
+        profile: 'Profile'
     title: 'Nos Voyages'
 
 index:
@@ -64,6 +73,7 @@ alreadyLogin: 'Vous etes deja connecter en tant que '
 form:
     user:
         label:
+            returnbutton: "Retour"
             email: "Adresse email"
             password: "Mot de passe"
             repeatPassword: "Répétez votre mot de passe"
@@ -71,6 +81,8 @@ form:
             lastname: "Nom"
             show: "Detail de l'utilisateur"
             edit: "Édition de l'utilisateur"
+            status: 'Statut'
+            role: 'Mon rôle'
     picture:
         label:
             download: "Telechargement d'une photo"
@@ -78,6 +90,7 @@ form:
             city: "Ville de prise"
             author: "Auteur de la photo"
             addCity: "Ajout d'une ville"
+            search: "Recherche"
     country:
         placeholder:
             description: "Entrez une courte description"
@@ -95,6 +108,8 @@ form:
             map: "Telechargement d'une image representatif"
             icon: "Telechargement d'une icon representatif"
     label:
+        country: "Pays"
+        city: "Ville"
         submit: "Sauvegarder"
 
     news:
@@ -108,8 +123,17 @@ form:
             addPicture: "Ajout d'une photo"
         placeholder:
             content: "Contenu de la news"
+    comment:
+        placeholder:
+            content : "Entrez un commentaire en lien avec la photo"
+        label:
+            show: 'Visualiser le commentaire'
+            edit: 'Éditer le commentaire'
 user:
     firstStapeSuccessfully: "Merci de vous etres inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
+    status:
+        standby: 'En attente de confirmation'
+        confirmed: 'Adresse email confirmé'
 settings:
     manage:
         pictures: 'Gestion des photos'
@@ -117,6 +141,7 @@ settings:
         cities: 'Gestion des villes'
         news: 'Gestion des news'
         users: 'Gestion des utilisateurs'
+        comments: 'Gestion des commentaires'
 new:
     picture: 'Nouvelle photo'
 picture:
@@ -160,6 +185,11 @@ datatable:
         lastname: 'Nom de familler'
         email: 'Adresse email'
         role: 'Role'
+    comment:
+        createdAt: 'Date de creation'
+        content: 'Contenu du commentaire'
+        archived: 'Validé'
+
 yes: 'Oui'
 no: 'Non'
 news:
@@ -167,3 +197,13 @@ news:
         detail: 'détail de la news'
         createdAt: 'Date de création :'
         archived: "Visibible ? : "
+email:
+    text:
+        subscribe: 'Merci %firstname% %lastname% pour ton enregistrement au site NOS VOYAGES! veuillez cliquer sur ce lien pour valider votre adresse email'
+        changePassword: 'Felicitation %firstname% %lastname%, ton mot de passe a bien été modifié'
+    subject:
+        subscribe: 'Email de confirmation'
+        changePassword: 'Email de changement de mot de passe'
+validate: 'Valider'
+comment:
+    stand: ' %firstname%, ton commentaire est en attente de validation'

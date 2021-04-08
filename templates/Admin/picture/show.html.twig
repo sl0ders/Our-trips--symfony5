@@ -5,8 +5,10 @@
 {% block body %}
     <div class="detail-picture-box">
         <div class="picture-part">
-            <img class="picture" src="{{ vich_uploader_asset(picture)|imagine_filter("large") }}" alt="{{ picture.picture.name }}">
-            <button type="button" class="rotate success" title="{{ "picture.text.return"|trans }}"><i class="fas fa-undo-alt"></i></button>
+            <img class="picture" src="{{ vich_uploader_asset(picture)|imagine_filter("large") }}"
+                 alt="{{ picture.picture.name }}">
+            <button type="button" class="rotate" title="{{ "picture.text.return"|trans }}"><i
+                        class="fas fa-undo-alt"></i></button>
         </div>
         <div class="detail-part">
             <h2>{{ "title.picture.show"|trans({"%name%": picture.picture.name} ) }}</h2>
@@ -23,11 +25,45 @@
                     {{ picture.picture.dimensions[0] }} x {{ picture.picture.dimensions[1] }}
                 </li>
             </ul>
-            <a href="{{ path('admin_picture_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('admin_picture_index') }}">
+                    <button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button>
+                </a>
+                <a href="{{ path('admin_picture_edit', {'id': picture.id}) }}">
+                    <button class="warning"><i class="fas fa-edit"></i></button>
+                </a>
+                {{ include('Admin/picture/_delete_form.html.twig') }}
+            {% else %}
+                <a href="{{ app.request.headers.get('referer') }}">
+                    <button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button>
+                </a>
+            {% endif %}
+            <hr>
+            <div class="comment-container">
+                <div class="comment-form-header">
+                    <h2>{{ "title.comment.header"|trans }}</h2>
+                </div>
+                <div class="comment-form-body">
+                    {{ form_start(form_comment) }}
+                    {{ form_row(form_comment.content) }}
+                    {{ form_row(form_comment.submit) }}
+                    {{ form_end(form_comment) }}
+                </div>
+                <div class="comment-form-footer">
+                    {% for comment in comments %}
+                        <div class="comment-detail-container">
+                            <div class="comment-header">
+                                <em>{{ comment.createdAt | date("d/m/Y") }} - {{ comment.author }}</em>
+                            </div>
+                            <div class="comment-body">
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        </div>
 
-            <a href="{{ path('admin_picture_edit', {'id': picture.id}) }}"><button class="warning"><i class="fas fa-edit"></i></button></a>
-
-            {{ include('Admin/picture/_delete_form.html.twig') }}
+                    {% endfor %}
+                </div>
+                {{ knp_pagination_render(comments) }}
+            </div>
         </div>
     </div>
     <br>

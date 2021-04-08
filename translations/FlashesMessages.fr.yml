@@ -1,4 +1,8 @@
 success: "succès"
 flashes:
-    user:
+    email:
         firstStapeSuccessfully: "Merci de vous etre inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
+        confirmed: 'Felicitation %firstname% %lastname% Ton compte a bien été validé'
+        firstStapeChangePassword: "Un email t'a été envoyé %firstname%, afin de confirmer le changement de ton mot de passe"
+    user:
+        modifyProfile: "Felicitation %firstname% la modification de ton profile c'est bien deroulé"

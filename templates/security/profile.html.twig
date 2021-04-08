@@ -1,0 +1,41 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "title.user.show"|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ "title.user.show"|trans }}</h1>
+    <table class="table">
+        <tbody class="table-body">
+        <tr>
+            <td class="title">{{ "form.user.label.firstname"|trans }} :</td>
+            <td class="content">{{ user.firstname }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.lastname"|trans }} :</td>
+            <td class="content">{{ user.lastname }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.email"|trans }} :</td>
+            <td class="content">{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.status"|trans }} :</td>
+            <td class="content">{{ user.status == 0 ? "user.status.standby"|trans : "user.status.confirmed" |trans }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.role"|trans }} :</td>
+            <td class="content">{% for role in user.roles %}{{ role }}{{ loop.last ? ' ' : ' , ' }}{% endfor %}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="box-button">
+        <a class="href-btn" href="{{ path('app_edit', {'id': user.id}) }}">
+            <button class="warning"><span class="fas fa-edit"></span></button>
+        </a>
+        <a class="href-btn" href="{{ path('user_change_password', {"id": user.id}) }}">
+            <button class="success">{{ "title.user.changePassword"|trans }}</button>
+        </a>
+    </div>
+{% endblock %}
+

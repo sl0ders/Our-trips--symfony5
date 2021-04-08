@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Datatable\newsDatatable;
+use App\Datatable\NewsDatatable;
 use App\Entity\News;
 use App\Entity\Picture;
 use App\Form\NewsType;
@@ -17,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/news")
- */
+#[Route('/admin/news')]
 class NewsController extends AbstractController
 {
     /**
@@ -38,12 +36,12 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/", name="admin_news_index", methods={"GET"})
      * @param NewsRepository $newsRepository
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
+    #[Route('/',name: 'admin_news_index', methods: ["GET"])]
     public function index(NewsRepository $newsRepository, Request $request): Response
     {
         $isAjax = $request->isXmlHttpRequest();
@@ -64,11 +62,11 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_news_new", methods={"GET","POST"})
      * @param Request $request
      * @param UserRepository $userRepository
      * @return Response
      */
+    #[Route('/new',name: 'admin_news_new', methods: ["GET","POST"])]
     public function new(Request $request, UserRepository $userRepository): Response
     {
         $news = new News();
@@ -102,10 +100,10 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_news_show", methods={"GET"})
      * @param News $news
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_news_show', methods: ["GET"])]
     public function show(News $news): Response
     {
         return $this->render('Admin/news/show.html.twig', [
@@ -114,11 +112,11 @@ class NewsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_news_edit", methods={"GET","POST"})
      * @param Request $request
      * @param News $news
      * @return Response
      */
+    #[Route('/{id}/edit',name: 'admin_news_edit', methods: ["GET","POST"])]
     public function edit(Request $request, News $news): Response
     {
         $form = $this->createForm(NewsType::class, $news);
@@ -150,6 +148,7 @@ class NewsController extends AbstractController
      * @param News $news
      * @return Response
      */
+    #[Route('/{id}',name: 'admin_news_delete', methods: ["DELETE"])]
     public function delete(Request $request, News $news): Response
     {
         if ($this->isCsrfTokenValid('delete' . $news->getId(), $request->request->get('_token'))) {
