@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Repository\CityRepository;
 use App\Repository\CountryRepository;
 use App\Repository\NewsRepository;
+use App\Repository\NotificationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,9 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LayoutBundleController extends AbstractController
 {
-    public function headerAction(): Response
+    public function headerAction(NotificationRepository $notificationRepository): Response
     {
+        $notifNotRead = count($notificationRepository->findBy(["isRead" => false]));
+
         return $this->render('Layout/_header.html.twig', [
+            "notifications" => $notificationRepository->findBy([], ["created_at"=>"DESC"]),
+            "notifNotRead" => $notifNotRead
         ]);
     }
 

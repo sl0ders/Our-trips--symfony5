@@ -1,0 +1,36 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if city is defined %}
+        {{ "title.picture.indexCity"|trans({"%city%": city.name}) }}
+    {% elseif country is defined %}
+        {{ "title.picture.indexCountry"|trans({"%country%": country.name}) }}
+    {% endif %}
+{% endblock %}
+{% block body %}
+    <h1>{{ "title.picture.indexCity"|trans({"%city%": city.name}) }}</h1>
+    <div class="pictures-display">
+        {% for picture in pagination %}
+            {% if app.user and app.user.status == 1 %}
+                <a href="{{ is_granted("ROLE_USER") ? path('public_picture_show', {'id': picture.id}) : path('app_login') }}" class="pictures-square">
+                    <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
+                         alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
+                </a>
+            {% else %}
+                <a class="pictures-square">
+                    <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
+                         alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
+                </a>
+            {% endif %}
+        {% endfor %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('admin_city_new') }}"
+               class="pictures-square empty">{{ "city.text.addCity"|trans }}</a>
+            <a href="{{ path('admin_picture_addFolder', {"id": city.id}) }}"
+               class="pictures-square empty">{{ "picture.text.addPictureFolder"|trans }}</a>
+        {% endif %}
+
+    </div>
+    {{ knp_pagination_render(pagination) }}
+{% endblock %}

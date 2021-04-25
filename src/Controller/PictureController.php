@@ -11,12 +11,10 @@ use App\Entity\Picture;
 use App\Entity\SearchData;
 use App\Form\CommentType;
 use App\Form\SearchFormType;
-use App\Repository\CityRepository;
 use App\Repository\CommentRepository;
 use App\Repository\PictureRepository;
-use App\Repository\SearchDataRepository;
 use App\Repository\UserRepository;
-use DateTime;
+use App\Services\NotificationServices;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,51 +29,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/picture')]
 class PictureController extends AbstractController
 {
-    /**
-     * @param City $city
-     * @param PictureRepository $pictureRepository
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
-    #[Route('/index/city/{id}', name: 'public_picture_index_city', methods: ["GET"])]
-    public function indexCity(City $city, PictureRepository $pictureRepository, Request $request, PaginatorInterface $paginator): Response
-    {
-        $pictures = $pictureRepository->findBy(["city" => $city]);
-        $pagination = $paginator->paginate(
-            $pictures,
-            $request->query->getInt('page', 1),
-            10
-        );
-        return $this->render("Public/picture/city.html.twig", [
-            "city" => $city,
-            "pictures" => $pictures,
-            'pagination' => $pagination
-        ]);
-    }
-
-    /**
-     * @param Country $country
-     * @param PictureRepository $pictureRepository
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
-    #[Route('/index/country/{id}', name: 'public_picture_index_country', methods: ["GET"])]
-    public function indexCountry(Country $country, PictureRepository $pictureRepository, Request $request, PaginatorInterface $paginator): Response
-    {
-        $pictures = $pictureRepository->findByCountry($country);
-        $pagination = $paginator->paginate(
-            $pictures,
-            $request->query->getInt('page', 1),
-            10
-        );
-        return $this->render("Public/picture/country.html.twig", [
-            "country" => $country,
-            "pagination" => $pagination,
-        ]);
-    }
-
     /**
      * @param PictureRepository $pictureRepository
      * @param PaginatorInterface $paginator
@@ -107,26 +60,30 @@ class PictureController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param TranslatorInterface $translator
      * @param CommentRepository $commentRepository
+     * @param NotificationServices $notificationServices
      * @return Response
+     * @throws \Exception
      */
     #[Route('/show/{id}', name: 'public_picture_show', methods: ["GET", "POST"])]
-    public function show(Picture $picture, Request $request, UserRepository $userRepository, PaginatorInterface $paginator, TranslatorInterface $translator, CommentRepository $commentRepository): Response
+    public function show(Picture $picture, Request $request, UserRepository $userRepository, PaginatorInterface $paginator, TranslatorInterface $translator, CommentRepository $commentRepository, NotificationServices $notificationServices): Response
     {
         $comment = new Comment();
         $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
         $user = $userRepository->find($this->getUser()->getId());
         if ($formComment->isSubmitted() && $formComment->isValid()) {
-            $comment->setCreatedAt(new DateTime());
+            $comment->setCreatedAt(new \DateTime());
             $comment->setEnabled(false);
             $comment->setLevel(1);
             $comment->setAuthor($user);
             $comment->setPicture($picture);
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
+            $notifContent = $translator->trans("notification.newComment", ["%date%" => $comment->getCreatedAt()->format("d/m/Y")], "OurTripsTrans");
+            $notificationServices->createNotification($notifContent, ["admin_comment_show", $comment->getId()]);
             $em->flush();
             $this->addFlash("success", $translator->trans("comment.stand", ["%firstname%" => $user->getFirstname()], "OurTripsTrans"));
-            return  $this->redirectToRoute("public_picture_show", ["id" => $picture->getId()]);
+            return $this->redirectToRoute("public_picture_show", ["id" => $picture->getId()]);
         }
         $comments = $commentRepository->findBy(["enabled" => true, "picture" => $picture]);
         $pagination = $paginator->paginate(
@@ -141,5 +98,4 @@ class PictureController extends AbstractController
             "comments" => $pagination
         ]);
     }
-
 }

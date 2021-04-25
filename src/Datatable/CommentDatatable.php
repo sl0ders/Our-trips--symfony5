@@ -69,15 +69,11 @@ class CommentDatatable extends AbstractDatatable
                 'class_name' => 'comment-content',
                 "width" => "300px"
             ])
-            ->add('enabled', BooleanColumn::class, [
+            ->add('enabled', Column::class, [
                 'title' => $this->translator->trans("datatable.comment.archived", [], "OurTripsTrans"),
-                'searchable' => true,
-                'orderable' => true,
-                'type_of_field' => 'integer',
+                'visible' => false,
                 "width" => "70px",
-                'default_content' => 'Default Value',
-                'true_icon' => 'fas fa-check',
-                'false_icon' => 'fas fa-times',
+
             ])
             ->add(null, ActionColumn::class, [
                 'title' => 'Actions',
@@ -86,18 +82,51 @@ class CommentDatatable extends AbstractDatatable
                 'end_html' => '</div>',
                 'actions' => [
                     [
+                        'route' => 'admin_comment_enabled',
+                        'route_parameters' => [
+                            'id' => 'id'
+                        ],
+                        'icon' => 'fa fa-toggle-off',
+                        'attributes' => [
+                            'rel' => 'tooltip',
+                            'title' => $this->translator->trans('comment.enabled', [], 'OurTripsTrans'),
+                            'class' => 'btn btn-danger btn-xs',
+                            'role' => 'button'
+                        ],
+                        'render_if' => function ($row) {
+                            return !$row['enabled'];
+                        },
+                    ],
+                    [
+                        'route' => 'admin_comment_enabled',
+                        'route_parameters' => [
+                            'id' => 'id'
+                        ],
+                        'icon' => 'fa fa-toggle-on',
+                        'attributes' => [
+                            'rel' => 'tooltip',
+                            'title' => $this->translator->trans('comment.disabled', [], 'OurTripsTrans'),
+                            'class' => 'btn btn-primary btn-xs',
+                            'role' => 'button'
+                        ],
+                        'render_if' => function ($row) {
+                            return $row['enabled'];
+                        },
+                    ],
+                    [
                         'route' => 'admin_comment_show',
-                        'label' => $this->translator->trans("form.comment.label.show", [], "OurTripsTrans"),
+                        'label' => null,
                         'route_parameters' => [
                             'id' => 'id',
                             '_format' => 'html',
                             '_locale' => 'fr'
                         ],
+                        'icon' => 'fa fa-eye',
                         'attributes' => [
                             'rel' => 'tooltip',
                             'title' => $this->translator->trans("form.comment.label.show", [], "OurTripsTrans"),
-                            'class' => 'btn btn-primary btn-xs show-comment',
-                            'role' => 'button'
+                            'role' => 'button',
+                            'class' => "btn btn-success btn-xs"
                         ],
                         'start_html' => '<div class="start_show_action">',
                         'end_html' => '</div>',

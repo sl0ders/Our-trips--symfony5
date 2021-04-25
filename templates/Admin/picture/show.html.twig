@@ -18,12 +18,16 @@
                 <li>{{ "picture.text.city"|trans }} : {{ picture.city }}</li>
                 <li>{{ "picture.text.author"|trans }} : {{ picture.author }}</li>
                 <li>{{ "picture.text.name"|trans }} : {{ picture.picture.name }}</li>
-                <li>{{ "picture.text.description"|trans }} : {{ picture.description }}</li>
+                {% if picture.description %}
+                    <li>{{ "picture.text.description"|trans }} : {{ picture.description }}</li>
+                {% endif %}
                 <li>{{ "picture.text.format"|trans }} : {{ picture.picture.mimeType }}</li>
                 <li>{{ "picture.text.size"|trans }} : {{ picture.picture.size }}</li>
-                <li>{{ "picture.text.dimensions"|trans }} :
-                    {{ picture.picture.dimensions[0] }} x {{ picture.picture.dimensions[1] }}
-                </li>
+                {% if picture.picture.dimensions %}
+                    <li>{{ "picture.text.dimensions"|trans }} :
+                        {{ picture.picture.dimensions[0] }} x {{ picture.picture.dimensions[1] }}
+                    </li>
+                {% endif %}
             </ul>
             {% if is_granted("ROLE_ADMIN") %}
                 <a href="{{ path('admin_picture_index') }}">

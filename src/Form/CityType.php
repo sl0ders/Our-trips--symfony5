@@ -6,6 +6,7 @@ use App\Entity\City;
 use App\Entity\Country;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,12 @@ class CityType extends AbstractType
             ->add('name', TextType::class, [
                 "label" => "form.city.label.name",
                 "attr" => ["class" => "form-case"]
+            ])
+            ->add("pictures", FileType::class, [
+                "multiple" => true,
+                "label" => false,
+                "mapped" => false,
+                "required" => false
             ])
             ->add('description', TextareaType::class, [
                 "label" => "form.city.label.description",

@@ -3,14 +3,14 @@
 <hr>
 <div class="list-items">
     {% for country in countries %}
-        <a href="{{ path('public_picture_index_country', {'id': country.id}) }}">
+        <a href="{{ path('public_country_index', {'id': country.id}) }}">
             <button type="button" class="left-item country" id="{{ country.id }}">
                 <img src="{{ vich_uploader_asset(country, "iconFile") }}" alt="{{ country.name }}" class="left-icon"
                      width="30"><em>{{ country.name }}</em>
             </button>
         </a>
         {% for city in country.cities %}
-            <a href="{{ path('public_picture_index_city', {'id': city.id}) }}">
+            <a href="{{ path('public_city_index', {'id': city.id}) }}">
                 <button type="button" class="left-item city">
                     {% if vich_uploader_asset(city, "iconFile") is not null %}
                         <img src="{{ vich_uploader_asset(city, "iconFile") }}" alt="{{ city.name }}" class="left-icon"
@@ -25,9 +25,3 @@
         {% endfor %}
     {% endfor %}
 </div>
-<script>
-    function getCity() {
-        let cities = $(".city").data("city")
-        cities.toggle()
-    }
-</script>

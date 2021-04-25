@@ -1,0 +1,28 @@
+{% trans_default_domain "OurTripsTrans" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "title.picture.indexCountry"|trans({"%country%": country.name}) }}
+{% endblock %}
+{% block body %}
+    <h1>{{ "title.picture.indexCountry"|trans({"%country%": country.name}) }}</h1>
+    <div class="pictures-display">
+        {% for city in cities %}
+            <div class="pictures-display">
+                {% for city in cities %}
+                    <a class="pictures-square" href="{{ path("public_city_index", {'id': city.id}) }}">
+                        {% if city.map.name is not null %}
+                            <em>{{ city.name }}</em>
+                            <img src="{{ vich_uploader_asset(city) }}" alt="{{ city.name }}">
+                        {% else %}
+                            {{ city.name }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('admin_city_new') }}"
+               class="pictures-square empty">{{ "city.text.addCity"|trans }}</a>
+        {% endif %}
+    </div>
+{% endblock %}

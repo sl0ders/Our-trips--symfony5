@@ -10,7 +10,7 @@ title:
         new: "Ajout d'une nouvelle photo"
         edit: "Édition de l'image %name%"
         indexCity: 'Photo de %city%'
-        indexCountry: 'Photo de %country%'
+        indexCountry: 'Choisissez une ville de %country%'
     country:
         index: 'Index des pays'
         show: 'Détail du pays %name%'
@@ -29,14 +29,14 @@ title:
     user:
         create: "Creation d'un nouvelle utilisateur"
         index: 'Index des utilisateurs'
-        show: "Détail de mon profile"
+        show: "Détail de mon profil"
         edit: "Édition du profil"
         changePassword: 'Modification du mot de passe'
     comment:
         header: 'Commentaire'
         index: 'Index des commentaires'
-    comments:
-        index: 'OurTripsTrans'
+    notification:
+        index: 'Index des notifications'
 
 header:
     menu:
@@ -46,13 +46,14 @@ header:
         register: "S'inscrire"
         logout: 'Se déconnecter'
         admin: 'Administration'
-        profile: 'Profile'
+        profile: 'Voir mon profil'
+        hello: 'Bonjour %firstname%'
     title: 'Nos Voyages'
 
 index:
     title: 'Pourquoi ce site ?'
     text: "Ce site a pour but de partager avec vous un bout de notre monde.
-            Notre planète est magnifique, surprenante mais la parcourir nécessite de l'argent et du temps. deux éléments
+            Notre planète est magnifique, parfois meme surprenante. Mais la parcourir nécessite de l'argent et du temps. deux éléments
             difficilement cumulables ! Certaines personnes décident d'attendre leur retraite pour voyager et d'autres se
             laissent porter par l’envie et les moyens du moment.
             L’envie de partager avec vous la découverte de pays époustouflants, de cultures si différentes de la notre est
@@ -129,6 +130,9 @@ form:
         label:
             show: 'Visualiser le commentaire'
             edit: 'Éditer le commentaire'
+    notification:
+        label:
+            show: 'Visualiser la notification'
 user:
     firstStapeSuccessfully: "Merci de vous etres inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"
     status:
@@ -142,6 +146,7 @@ settings:
         news: 'Gestion des news'
         users: 'Gestion des utilisateurs'
         comments: 'Gestion des commentaires'
+        notification: 'Gestion des notifications'
 new:
     picture: 'Nouvelle photo'
 picture:
@@ -161,6 +166,7 @@ picture:
         return: "Tourner l'image de 90°"
         countryPictures: 'Photos du pays'
         cityPictures: 'Photos de la ville'
+        addPictureFolder: 'Ajouter un dossier de photo'
 Save: 'Sauvegarder'
 return: 'Retour'
 edit: 'Éditer'
@@ -197,6 +203,7 @@ news:
         detail: 'détail de la news'
         createdAt: 'Date de création :'
         archived: "Visibible ? : "
+        addNew: "Ajout d'une news"
 email:
     text:
         subscribe: 'Merci %firstname% %lastname% pour ton enregistrement au site NOS VOYAGES! veuillez cliquer sur ce lien pour valider votre adresse email'
@@ -207,3 +214,21 @@ email:
 validate: 'Valider'
 comment:
     stand: ' %firstname%, ton commentaire est en attente de validation'
+    enabled: 'Validé'
+    disabled: 'Non validé'
+text:
+    publishago: 'Publier il y a'
+notification:
+    label:
+        created_at: 'Date de creation'
+        id: 'Id de la notification'
+        content: 'Contenu de la notification'
+        isRead: 'est lu ?'
+    newMember: "Un nouveau membre viens de s'inscrire"
+    newComment: "Un nouveau commentaire a été posté le %date%"
+    box:
+        text: 'Il y a actuellement %length% notification non lu'
+    notread: 'Non lu'
+    read: 'lu'
+button:
+    adminMode: 'Mode administration'

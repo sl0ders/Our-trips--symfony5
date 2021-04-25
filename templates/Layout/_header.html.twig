@@ -18,20 +18,74 @@
                     <button class="nav-items">{{ "header.log.register"|trans }}</button>
                 </a>
             {% else %}
-                <a href="{{ path('app_show', {"id": app.user.id}) }}" class="nav-items">
-                    <button>{{ "header.log.profile"|trans }}</button>
-                </a>
+                <div class="myProfile">
+                    <div class="hello">{{ "header.log.hello"|trans({"%firstname%": app.user.firstname}) }}</div>
+                    <a href="{{ path('app_show', {"id": app.user.id}) }}" class="nav-items">
+                        <button><i class="far fa-user"></i></button>
+                    </a>
+                </div>
                 {% if is_granted("ROLE_ADMIN") %}
                     <a href="{{ path('admin_settings_index') }}" class="nav-items">
-                        <button>{{ "header.log.admin"|trans }}</button>
+                        <button><i class="fas fa-cogs"></i></button>
                     </a>
+                    <div class="nav-items notif">
+                        <button><i class="far fa-bell"></i><small class="">{{ notifNotRead }}</small></button>
+                    </div>
+                    <ul class="notification-list">
+                        {% for notification in notifications %}
+                            <li class="notification-item {{ notification.isRead == false ? "noRead" }}" id="{{ notification.id }}">
+                                {% if notification.isRead == false %}
+                                <small class="text-danger"><i class="fas fa-asterisk"></i></small>
+                                {% endif %}
+                                <a id="{{ notification.id }}" class="notif-link" href="{{ path(notification.path, {"id": notification.idPath} ) }}">
+                                    {{ notification.content|slice(0,34) }} <br>
+                                    <em>{{ notification.createdAt| ago(locale="fr") }}</em>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 {% endif %}
                 <a href="{{ path('app_logout') }}">
-                    <button class="nav-items logout">{{ "header.log.logout"|trans }}</button>
+                    <button class="nav-items logout"><i class="fas fa-sign-out-alt"></i></button>
                 </a>
             {% endif %}
         </div>
         <h1 class="title">{{ "header.title"|trans }}</h1>
     </div>
 </nav>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+</script>
+<script>
+
+    function toggleNotif(itemCliquacle, path, urlReturn) {
+        itemCliquacle.click((e) => {
+            console.log(e.target.id)
+            $.ajax({
+                type: "GET",
+                url: path,
+                data: {
+                    notification: e.target.id
+                },
+                dataType: "json",
+                success: function () {
+                    if (e.target.id) {
+                        let url = urlReturn;
+                        url = url.replace("id", e.target.id);
+                        window.location.replace(url);
+                    } else
+                        alert("vide");
+                }
+            }, "json");
+            return false;
+        })
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        toggleNotif($(".notification-item"), "{{ (path('admin_change_read')) }}", '{{ path("admin_notification_show", {'id': 'id'}) }}')
+        toggleNotif($(".notif-link"), "{{ (path('admin_change_read')) }}", '{{ path("admin_notification_show", {'id': 'id'}) }}')
+    })
+</script>
 

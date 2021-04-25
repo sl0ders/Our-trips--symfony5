@@ -5,9 +5,8 @@
 
 {% block body %}
     <h1>{{ "title.comment.index"|trans }}</h1>
-    <div class="datatable-containter">
+    <div class="datatable">
     {{ sg_datatables_render(datatable) }}
-    <a href="{{ path('admin_comment_new') }}" class="btn btn-success new-comments">{{ "create"|trans }}</a>
     </div>
 {% endblock %}
 {% block stylesheets %}

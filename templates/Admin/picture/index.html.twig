@@ -10,13 +10,35 @@
         {{ form_row(form.city) }}
         {{ form_end(form) }}
     </div>
-        <div class="pictures-display">
+    <div class="pictures-display">
+        <button class="alert-danger" id="adminMode">{{ "button.adminMode"|trans }}</button>
         {% for picture in pagination %}
-                <a href="{{ path('admin_picture_show', {'id': picture.id}) }}" class="pictures-square">
-                    <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre")}}"  alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
-                </a>
+            <a href="{{ path('admin_picture_show', {'id': picture.id}) }}" data-square="{{ picture.id }}"
+               class="pictures-square">
+                <label for="inputCheck"></label>
+                <input class="{{ picture.id }}" type="checkbox" id="inputCheck" data-input="{{ picture.id }}">
+                <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}" data-picture="{{ picture.id }}"
+                     alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}"
+                     id="{{ picture.id }}">
+            </a>
         {% endfor %}
-            <a href="{{ path('admin_picture_new') }}" class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
+        <div class="admin-option">
+            <a class="pictures-square empty alert-danger" id="delete">
+                <i class="fa fa-trash fa-7x"></i>
+            </a>
+            <a href="{{ path('admin_picture_new') }}"
+               class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
         </div>
-        {{ knp_pagination_render(pagination) }}
+    </div>
+    {{ knp_pagination_render(pagination) }}
 {% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        {% include "Admin/javascript/script.js.twig" %}
+    </script>
+{% endblock %}
+

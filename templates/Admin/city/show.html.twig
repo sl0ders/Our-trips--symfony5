@@ -37,5 +37,11 @@
                             src="{{ vich_uploader_asset(picture)|imagine_filter("carre") }}" alt=""></a>
             {% endfor %}
         </div>
+        <div class="pictures-display">
+            <a href="{{ path('admin_picture_new') }}"
+               class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
+            <a href="{{ path('admin_picture_addFolder', {"id": city.id}) }}"
+               class="pictures-square empty">{{ "picture.text.addPictureFolder"|trans }}</a>
+        </div>
     </div>
 {% endblock %}

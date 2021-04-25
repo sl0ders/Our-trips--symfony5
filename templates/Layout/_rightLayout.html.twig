@@ -1,18 +1,31 @@
 {% trans_default_domain "OurTripsTrans" %}
 <h1 class="title-right">{{ "rightLayout.title"|trans }}</h1>
 <hr>
+
 <div class="list-items">
     {% for new in news %}
-            <div class="box">
-                <h3 class="box-title">{{ new.title }}</h3> <em></em>
-                <div class="box-content">
+        <div class="news-box">
+            <div class="news-box-header">
+                <h3 class="news-box-title">{{ new.title }}</h3> <em></em>
+            </div>
+            <div class="news-box-body">
+                <div class="news-box-content">
                     <p>{{ new.content }}</p>
                 </div>
-                <div class="footer">
-                    <em class="date">{{ new.createdAt|date("d/m/Y H:i:s") }}</em>
-                    <a href="{{ path('public_picture_show', {'id': new.link.id}) }}"><img src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}" alt="{{ new.link.picture.name }}" width="200"></a>
-                </div>
             </div>
+            <div class="news-box-footer">
+               <a {% if is_granted('ROLE_USER') %} href="{{ path('public_picture_show', {'id': new.link.id}) }}" {% endif %}><img
+                            src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}"
+                            alt="{{ new.link.picture.name }}" width="200"></a>
+                <em class="date">{{ new.createdAt | ago(locale="fr") }}</em>
+            </div>
+        </div>
     {% endfor %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('admin_news_new') }}" class="news-empty">
+            <h4>{{ "news.text.addNew"|trans }}</h4>
+        </a>
+    {% endif %}
 </div>
+
 

@@ -7,6 +7,7 @@ use App\Form\ChangePasswordType;
 use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Services\MailService;
+use App\Services\NotificationServices;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -87,7 +88,7 @@ class SecurityController extends AbstractController
             $user->setPassword($user->getPassword());
             $em->persist($user);
             $em->flush();
-            $this->addFlash("success" , $translator->trans("flashes.user.modifyProfile", ["%firstname%" => $user->getFirstname()], "FlashesMessages"));
+            $this->addFlash("success", $translator->trans("flashes.user.modifyProfile", ["%firstname%" => $user->getFirstname()], "FlashesMessages"));
             return $this->redirectToRoute("app_show", ["id" => $user->getId()]);
         }
         return $this->render("security/edit.html.twig", [
@@ -111,17 +112,21 @@ class SecurityController extends AbstractController
     /**
      * @param User $user
      * @param TranslatorInterface $translator
+     * @param \App\Services\NotificationServices $notificationServices
      * @return RedirectResponse
+     * @throws \Exception
      */
     #[Route('/change-status/{id}', name: 'user_change_status')]
-    public function changeStatus(User $user, TranslatorInterface $translator): RedirectResponse
+    public function changeStatus(User $user, TranslatorInterface $translator, NotificationServices $notificationServices): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $user->setStatus(1);
         $em->persist($user);
-        $em->flush();
         $message = $translator->trans("flashes.email.confirmed", ["%firstname%" => $user->getFirstname(), "%lastname%" => $user->getLastname()], "FlashesMessages");
         $this->addFlash("success", $message);
+        $notifContent = $translator->trans("notification.newMember", [], "OurTripsTrans");
+        $notificationServices->createNotification($notifContent, ["app_show", $user->getId()]);
+        $em->flush();
         return $this->redirectToRoute("home");
     }
 

@@ -5,7 +5,9 @@
 
 {% block body %}
     <h1>{{ "title.news.index"|trans }}</h1>
-    {{ sg_datatables_render(datatable) }}
+    <div class="datatable">
+        {{ sg_datatables_render(datatable) }}
+    </div>
     <a href="{{ path('admin_news_new') }}" class="btn btn-success new-news">{{ "create"|trans }}</a>
 {% endblock %}
 {% block stylesheets %}

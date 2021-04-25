@@ -30,6 +30,7 @@ class PictureType extends AbstractType
                 "attr" => ["class" => "form-case", "placeholder" => "picture.placeholder.description"],
                 "required" => false
             ])
+
             ->add('city', EntityType::class, [
                 "class" => City::class,
                 "label" => "form.picture.label.city",

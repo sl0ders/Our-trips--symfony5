@@ -54,16 +54,16 @@ class CountryController extends AbstractController
 
     /**
      * @param Country $country
-     * @param PictureRepository $pictureRepository
+     * @param PictureRepository $cityRepository
      * @return Response
      */
     #[Route('/{id}',name: 'admin_country_show', methods: ["GET"])]
-    public function show(Country $country, PictureRepository $pictureRepository): Response
+    public function show(Country $country, PictureRepository $cityRepository): Response
     {
-        $pictures = $pictureRepository->findByCountry($country);
+        $cities = $cityRepository->findByCountry($country);
         return $this->render('Admin/country/show.html.twig', [
             'country' => $country,
-            "pictures" => $pictures
+            "pictures" => $cities
         ]);
     }
 

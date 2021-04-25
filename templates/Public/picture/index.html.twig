@@ -23,7 +23,7 @@
 
     <div class="pictures-display">
         {% for picture in pagination %}
-            <a href="{{ path('public_picture_show', {'id': picture.id}) }}" class="pictures-square">
+            <a href="{{ is_granted("ROLE_USER") ? path('public_picture_show', {'id': picture.id}) : path('app_login') }}" class="pictures-square">
                 <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
                      alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
             </a>
@@ -31,8 +31,8 @@
         {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('admin_picture_new') }}"
                class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
+            <a href="{{ path('admin_picture_addFolder', {"id": picture.city.id}) }}" class="pictures-square empty">{{ "picture.text.addPictureFolder"|trans }}</a>
         {% endif %}
-
     </div>
     {{ knp_pagination_render(pagination) }}
 {% endblock %}

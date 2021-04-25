@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"email"}, message="constraints.unique.user.email")
  * @ApiResource()
+ * @Assert\EnableAutoMapping()
  */
 class User implements UserInterface
 {

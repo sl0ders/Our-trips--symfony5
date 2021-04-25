@@ -1,0 +1,73 @@
+let pictures = [];
+let adminMod = false
+
+$(document).ready(() => {
+    let $i = $('i')
+    let $delete = $(".fa-trash")
+    let checkbox = $("input[type='checkbox']")
+    let adminOption = $(".admin-option")
+    adminOption.hide()
+    let buttonAdmin = $("#adminMode")
+    let pictureSquare = $(".pictures-square")
+    let aPciture = $("a[class='pictures-square']")
+    buttonAdmin.click(() => {
+        adminMod === true ? adminMod = false : adminMod = true
+        if (adminMod === true) {
+            aPciture.removeAttr("href")
+            aPciture.css("cursor", "pointer")
+            adminOption.toggle("low")
+            adminOption.css("display", "flex")
+            $delete.toggle("low")
+            checkbox.toggle("low")
+            buttonAdmin.toggleClass("logout", "low")
+            $delete.toggle("low")
+        } else {
+            pictureSquare.click((e) => {
+                aPciture.attr("href", "/admin/picture/" + e.target.id)
+            });
+        }
+        pictureSquare.click((e) => {
+            let checkbox = $("input[data-input='" + e.target.id + "']")
+            e.target.style.transform = "scale(1)"
+            if (checkbox[0].checked === true) {
+                e.target.style.transform = "scale(1)"
+                checkbox[0].checked = false
+            } else {
+                e.target.style.transform = "scale(1.2)"
+                checkbox[0].checked = true
+
+            }
+            if (!pictures.includes(e.target.id)) {
+                pictures.push(e.target.id)
+            } else {
+                const index = pictures.indexOf(e.target.id);
+                if (index > -1) {
+                    pictures.splice(index, 1);
+                }
+            }
+            pictures.length > 0 ? $delete.addClass("text-danger") : $delete.removeClass("text-danger")
+        })
+
+        $delete.on("click", () => {
+            if (pictures.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '{{ path('admin_picture_deletemultiple') }}',
+                    data: {
+                        pictures: pictures
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        data.map((imgId) => {
+                            let picturesSquare = $("a[data-square='" + imgId + "']")
+                            picturesSquare.remove()
+                            pictures.length = 0
+                            $i.removeClass("text-danger")
+                        })
+                    }
+                }, "json");
+            }
+            return false;
+        })
+    })
+})

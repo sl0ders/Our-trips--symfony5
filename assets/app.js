@@ -48,4 +48,32 @@ $(".rotate").click(() => {
     detailPicture.css("margin-top", "250px")
     $('body').css("backgroud", "rgba(255,255,255,0.2)")
 })
+let notifIcon = $(".notif")
+notifIcon.click(() => {
+    $(".notification-list").toggle("slow")
+})
+
+function toggleNotif(itemCliquacle, path, urlReturn) {
+    itemCliquacle.click((e) => {
+        console.log(e.target.id)
+        $.ajax({
+            type: "GET",
+            url: path,
+            data: {
+                notification: e.target.id
+            },
+            dataType: "json",
+            success: function () {
+                if (e.target.id) {
+                    let url = urlReturn;
+                    url = url.replace("id", e.target.id);
+                    window.location.replace(url);
+                } else
+                    alert("vide");
+            }
+        }, "json");
+        return false;
+    })
+}
+
 

@@ -6,3 +6,6 @@ flashes:
         firstStapeChangePassword: "Un email t'a été envoyé %firstname%, afin de confirmer le changement de ton mot de passe"
     user:
         modifyProfile: "Felicitation %firstname% la modification de ton profile c'est bien deroulé"
+    comment:
+        enabled: 'Le commentaire a bien été validé'
+        disabled: 'Le commentaire a bien été bloqué'

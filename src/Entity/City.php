@@ -11,14 +11,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=CityRepository::class)
  * @Vich\Uploadable
- * @ApiResource()
  */
+#[ApiResource()]
 class City
 {
     /**
@@ -31,11 +33,13 @@ class City
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Length(min: 2, minMessage: 'constraints.city.name.minLength'), Assert\NotBlank(message: "constraints.city.name.notblank")]
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    #[Length(min: 5, minMessage: 'constraints.description.name.minLength')]
     private $description;
 
     /**
@@ -45,7 +49,7 @@ class City
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="city")
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="city", orphanRemoval=true, cascade={"persist"})
      */
     private $pictures;
 
@@ -132,7 +136,7 @@ class City
     }
 
     /**
-     * @return Collection|Picture[]
+     * @return Collection
      */
     public function getPictures(): Collection
     {
@@ -145,7 +149,6 @@ class City
             $this->pictures[] = $picture;
             $picture->setCity($this);
         }
-
         return $this;
     }
 

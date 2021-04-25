@@ -77,12 +77,6 @@ class Picture
      */
     private $picture;
 
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var DateTimeInterface|null
-     */
-    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=News::class, mappedBy="link")
@@ -108,7 +102,7 @@ class Picture
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|UploadedFile|null $pictureFile
+     * @param File|null $pictureFile
      */
     public function setPictureFile(?File $pictureFile = null)
     {
@@ -173,7 +167,7 @@ class Picture
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Collection
      */
     public function getComments(): Collection
     {
