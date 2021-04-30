@@ -1,0 +1,16 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    filter_sets:
+        cache: ~
+        carre:
+            quality: 75
+            filters:
+                thumbnail:
+                    size:   [300, 300]
+                    mode: outbound
+        icon:
+            quality: 75
+            filters:
+                thumbnail:
+                    size:   [40, 40]
+                    mode: outbound

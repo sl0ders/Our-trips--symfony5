@@ -7,8 +7,7 @@
         <div class="picture-part">
             <img class="picture" src="{{ vich_uploader_asset(picture)|imagine_filter("large") }}"
                  alt="{{ picture.picture.name }}">
-            <button type="button" class="rotate" title="{{ "picture.text.return"|trans }}"><i
-                        class="fas fa-undo-alt"></i></button>
+            <button type="button" class="rotate" title="{{ "picture.text.return"|trans }}"><i class="fas fa-undo-alt"></i></button>*
         </div>
         <div class="detail-part">
             <h2>{{ "title.picture.show"|trans({"%name%": picture.picture.name} ) }}</h2>

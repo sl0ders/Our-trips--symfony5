@@ -24,7 +24,7 @@
                 {% if news.link.picture is defined %}
                     <div class="pictures-display">
                         <div class="pictures-square">
-                            <img src="{{ vich_uploader_asset(news.link)|imagine_filter("carre") }}"
+                            <img src="{{ vich_uploader_asset(news.link) }}"
                                  alt="{{ news.title }}">
                         </div>
                     </div>

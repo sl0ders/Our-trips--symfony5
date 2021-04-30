@@ -33,11 +33,13 @@
                     </div>
                     <ul class="notification-list">
                         {% for notification in notifications %}
-                            <li class="notification-item {{ notification.isRead == false ? "noRead" }}" id="{{ notification.id }}">
+                            <li class="notification-item {{ notification.isRead == false ? "noRead" }}"
+                                id="{{ notification.id }}">
                                 {% if notification.isRead == false %}
-                                <small class="text-danger"><i class="fas fa-asterisk"></i></small>
+                                    <small class="text-danger"><i class="fas fa-asterisk"></i></small>
                                 {% endif %}
-                                <a id="{{ notification.id }}" class="notif-link" href="{{ path(notification.path, {"id": notification.idPath} ) }}">
+                                <a id="{{ notification.id }}" class="notif-link"
+                                   href="{{ path(notification.path, {"id": notification.idPath} ) }}">
                                     {{ notification.content|slice(0,34) }} <br>
                                     <em>{{ notification.createdAt| ago(locale="fr") }}</em>
                                 </a>
@@ -58,10 +60,8 @@
         crossorigin="anonymous">
 </script>
 <script>
-
-    function toggleNotif(itemCliquacle, path, urlReturn) {
+    function toggleNotif(itemCliquacle, path) {
         itemCliquacle.click((e) => {
-            console.log(e.target.id)
             $.ajax({
                 type: "GET",
                 url: path,
@@ -69,16 +69,11 @@
                     notification: e.target.id
                 },
                 dataType: "json",
-                success: function () {
-                    if (e.target.id) {
-                        let url = urlReturn;
-                        url = url.replace("id", e.target.id);
-                        window.location.replace(url);
-                    } else
-                        alert("vide");
+                success: function (data) {
+                    let url = Routing.generate(data.path, {'param' : data.idPath});
+                    window.location.replace(url);
                 }
             }, "json");
-            return false;
         })
     }
 </script>

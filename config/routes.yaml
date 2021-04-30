@@ -1,3 +1,0 @@
-admin_picture_folderPictures:
-    path: /folderPictures
-    controller: App\Controller\Admin\PictureController::folderPictures

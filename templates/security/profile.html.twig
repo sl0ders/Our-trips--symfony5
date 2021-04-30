@@ -29,13 +29,15 @@
         </tr>
         </tbody>
     </table>
-    <div class="box-button">
-        <a class="href-btn" href="{{ path('app_edit', {'id': user.id}) }}">
-            <button class="warning"><span class="fas fa-edit"></span></button>
-        </a>
-        <a class="href-btn" href="{{ path('user_change_password', {"id": user.id}) }}">
-            <button class="success">{{ "title.user.changePassword"|trans }}</button>
-        </a>
-    </div>
+    {% if app.user.email == user.email %}
+        <div class="box-button">
+            <a class="href-btn" href="{{ path('app_edit', {'id': user.id}) }}">
+                <button class="warning"><span class="fas fa-edit"></span></button>
+            </a>
+            <a class="href-btn" href="{{ path('user_change_password', {"id": user.id}) }}">
+                <button class="success">{{ "title.user.changePassword"|trans }}</button>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
 

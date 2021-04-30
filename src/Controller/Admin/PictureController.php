@@ -155,6 +155,8 @@ class PictureController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @param Request $request
      * @param Picture $picture

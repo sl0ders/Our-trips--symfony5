@@ -4,40 +4,40 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
+    <h1>{{ "title.user.show"|trans }}</h1>
     <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
+        <tbody class="table-body">
+        <tr>
+            <td class="title">{{ "form.user.label.firstname"|trans }} :</td>
+            <td class="content">{{ user.firstname }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.lastname"|trans }} :</td>
+            <td class="content">{{ user.lastname }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.email"|trans }} :</td>
+            <td class="content">{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.status"|trans }} :</td>
+            <td class="content">{{ user.status == 0 ? "user.status.standby"|trans : "user.status.confirmed" |trans }}</td>
+        </tr>
+        <tr>
+            <td class="title">{{ "form.user.label.role"|trans }} :</td>
+            <td class="content">{% for role in user.roles %}{{ role }}{{ loop.last ? ' ' : ' , ' }}{% endfor %}</td>
+        </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('admin_user_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
-
-    <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><button class="warning"><i class="fas fa-edit"></i></button></a></a>
-
+    {% if app.user.email == user.email %}
+        <div class="box-button">
+            <a class="href-btn" href="{{ path('app_edit', {'id': user.id}) }}">
+                <button class="warning"><span class="fas fa-edit"></span></button>
+            </a>
+            <a class="href-btn" href="{{ path('user_change_password', {"id": user.id}) }}">
+                <button class="success">{{ "title.user.changePassword"|trans }}</button>
+            </a>
+        </div>
+    {% endif %}
     {{ include('Admin/user/_delete_form.html.twig') }}
 {% endblock %}

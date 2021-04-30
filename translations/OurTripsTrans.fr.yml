@@ -84,6 +84,7 @@ form:
             edit: "Édition de l'utilisateur"
             status: 'Statut'
             role: 'Mon rôle'
+            createdAt: "Date d'enregistrement"
     picture:
         label:
             download: "Telechargement d'une photo"
@@ -138,6 +139,17 @@ user:
     status:
         standby: 'En attente de confirmation'
         confirmed: 'Adresse email confirmé'
+        blocked: 'Utilisateur bloqué'
+    role:
+        admin: 'Administrateur'
+        user: 'Utilisateur'
+    table:
+        firstname: 'Prenom'
+        lastname: 'Nom'
+        email: 'Adresse email'
+        role: 'Role'
+        status: 'Statut'
+        createdAt: "Date d'enregistrement"
 settings:
     manage:
         pictures: 'Gestion des photos'

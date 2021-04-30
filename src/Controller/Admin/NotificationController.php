@@ -95,13 +95,18 @@ class NotificationController extends AbstractController
     {
         $notificationId = $request->get("notification");
         $notification = $notificationRepository->find($notificationId);
-        $notification->setIsRead(true);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($notification);
-        $em->flush();
-        $notif[$notification->getId()] = $notification->getid();
-        $response = new Response(json_encode($notif));
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        if ($notification->getIsRead() === false) {
+            $notification->setIsRead(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($notification);
+            $em->flush();
+            $notif["idPath"] = $notification->getIdPath();
+            $notif['path'] = $notification->getPath();
+            $response = new Response(json_encode($notif));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            return $this->redirectToRoute($notification->getPath(), ["id" => $notification->getIdPath()]);
+        }
     }
 }

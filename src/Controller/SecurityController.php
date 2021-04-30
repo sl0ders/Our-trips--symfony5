@@ -8,6 +8,8 @@ use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Services\MailService;
 use App\Services\NotificationServices;
+use DateTime;
+use Exception;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -45,9 +47,10 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @param MailService $mailService
      * @return RedirectResponse|Response
+     * @throws Exception
      */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder, MailService $mailService)
+    public function register(Request $request,NotificationServices $notificationServices, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder, MailService $mailService): RedirectResponse|Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -55,7 +58,7 @@ class SecurityController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setCreatedAt(new \DateTime());
+            $user->setCreatedAt(new DateTime());
             $user->setRoles(["ROLE_USER"]);
             $user->setStatus(0);
             $user->setPassword($hash);
@@ -65,6 +68,9 @@ class SecurityController extends AbstractController
             $this->addFlash("success", $message);
             $subject = $translator->trans("email.subject.subscribe", [], "OurTripsTrans");
             $mailService->sendMail($subject, $user->getEmail(), ["subscribe" => true, "user" => $user]);
+            $notifContent = $translator->trans("notification.newMember", [], "OurTripsTrans");
+            $notificationServices->createNotification($notifContent, ["app_show", $user->getId()]);
+            $em->flush();
             return $this->redirectToRoute("home");
         }
         return $this->render("security/register.html.twig", [
@@ -112,9 +118,9 @@ class SecurityController extends AbstractController
     /**
      * @param User $user
      * @param TranslatorInterface $translator
-     * @param \App\Services\NotificationServices $notificationServices
+     * @param NotificationServices $notificationServices
      * @return RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     #[Route('/change-status/{id}', name: 'user_change_status')]
     public function changeStatus(User $user, TranslatorInterface $translator, NotificationServices $notificationServices): RedirectResponse

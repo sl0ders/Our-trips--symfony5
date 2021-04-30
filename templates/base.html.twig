@@ -3,9 +3,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="./images/favicon.ico"/>
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}"/>
     <title>{% block title %}{% endblock %}</title>
-
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
         {{ encore_entry_link_tags('app') }}
@@ -16,12 +15,11 @@
     {% endblock %}
 </head>
 <body>
-<div class="filter">
-    <div class="header">
+    <header>
         {{ render(controller('App\\Controller\\LayoutBundleController::headerAction')) }}
         {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
-    </div>
-    <div class="main">
+    </header>
+    <main class="filter">
         <div class="left-side">
             {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
         </div>
@@ -31,10 +29,9 @@
         <div class="right-side">
             {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
         </div>
-    </div>
-    <div class="footer">
+    </main>
+    <footer class="filter">
         {{ render(controller('App\\Controller\\LayoutBundleController::footerAction')) }}
-    </div>
-</div>
+    </footer>
 </body>
 </html>
