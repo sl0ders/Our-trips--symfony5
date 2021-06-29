@@ -13,12 +13,13 @@
     <div class="pictures-display">
         {% for picture in pagination %}
             {% if app.user and app.user.status == 1 %}
-                <a href="{{ is_granted("ROLE_USER") ? path('public_picture_show', {'id': picture.id}) : path('app_login') }}" class="pictures-square">
+                <a href="{{ is_granted("ROLE_USER") ? path('public_picture_show', {'id': picture.id}) : path('app_login') }}"
+                   class="pictures-square">
                     <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
                          alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
                 </a>
             {% else %}
-                <a class="pictures-square">
+                <a class="pictures-square" onclick='$(".help_window").fadeIn().delay(2000).fadeOut()'>
                     <img src="{{ vich_uploader_asset(picture) | imagine_filter("carre") }}"
                          alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
                 </a>

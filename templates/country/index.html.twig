@@ -9,7 +9,7 @@
         {% for city in cities %}
             <div class="pictures-display">
                 {% for city in cities %}
-                    <a class="pictures-square" href="{{ path("public_city_index", {'id': city.id}) }}">
+                    <a class="pictures-square" href="{{ path("public_city_index", {'name': city.name}) }}">
                         {% if city.map.name is not null %}
                             <em>{{ city.name }}</em>
                             <img src="{{ vich_uploader_asset(city) }}" alt="{{ city.name }}">

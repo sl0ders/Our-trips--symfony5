@@ -15,23 +15,28 @@
     {% endblock %}
 </head>
 <body>
-    <header>
-        {{ render(controller('App\\Controller\\LayoutBundleController::headerAction')) }}
-        {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
-    </header>
-    <main class="filter">
-        <div class="left-side">
-            {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
+<header>
+    {{ render(controller('App\\Controller\\LayoutBundleController::headerAction')) }}
+    {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
+
+</header>
+
+<main class="filter">
+    <div class="left-side">
+        {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
+    </div>
+    <div class="center">
+        <div class="help_window">
+            <p class="help-text">{{ "error.not-login" |trans }}</p>
         </div>
-        <div class="center">
-            {% block body %}{% endblock %}
-        </div>
-        <div class="right-side">
-            {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
-        </div>
-    </main>
-    <footer class="filter">
-        {{ render(controller('App\\Controller\\LayoutBundleController::footerAction')) }}
-    </footer>
+        {% block body %}{% endblock %}
+    </div>
+    <div class="right-side">
+        {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
+    </div>
+</main>
+<footer class="filter">
+    {{ render(controller('App\\Controller\\LayoutBundleController::footerAction')) }}
+</footer>
 </body>
 </html>

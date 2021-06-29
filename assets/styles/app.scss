@@ -300,6 +300,7 @@ body {
   }
 
   button {
+    cursor: pointer;
     border: #0c698d 1px solid;
     border-radius: 5px;
     font-size: 0.8em;
@@ -885,6 +886,7 @@ body {
       table {
         background: rgba(18, 135, 184, 0.6);
         color: white;
+        padding: 15px;
       }
 
       .country-show-box, .city-show-box {
@@ -1103,6 +1105,17 @@ body {
 }
 
 
-
-
-
+.help_window {
+  display: none;
+  border: transparent solid;
+  background-color: rgba(238, 36, 36, 0.5);
+  color: white;
+  margin: 20px auto 0 auto;
+  width: 30vw;
+  text-align: center;
+  border-radius: 10px;
+  .help-text {
+    font-size: 1.1em;
+    padding: 10px;
+  }
+}

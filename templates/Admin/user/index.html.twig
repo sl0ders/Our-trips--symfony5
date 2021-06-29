@@ -25,7 +25,7 @@
                 <th>{{ user.email }}</th>
                 <th>
                     {% if user.roles|length > 1 %}
-                         {{ "user.role.admin"|trans }}
+                        {{ "user.role.admin"|trans }}
                     {% else %}
                         {{ "user.role.user"|trans }}
                     {% endif %}
@@ -37,10 +37,10 @@
                         <button class="warning"><i class="fas fa-edit"></i></button>
                     </a>
                     <a href="{{ path('admin_user_block', {"id": user.id}) }}">
-                        {% if user.status == 1 %}
-                        <button class="danger"><i class="fas fa-lock"></i></button>
+                        {% if not user.disabledAt %}
+                        <button class="success" title="{{ "title.user.unlock" | trans }}"><i class="fas fa-unlock"></i></button>
                         {% else %}
-                        <button class="success"><i class="fas fa-unlock"></i></button>
+                        <button class="danger" title="{{ "title.user.lock" | trans }}"><i class="fas fa-lock"></i></button>
                     </a>
                     {% endif %}
 

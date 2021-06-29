@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/city')]
 class CityController extends AbstractController
 {
-    #[Route('/{id}', name: 'public_city_index', requirements: ["id" => "\d+"])]
+    #[Route('/{name}', name: 'public_city_index', requirements: ["id" => "\d+"])]
     public function index(City $city, PaginatorInterface $paginator, Request $request): Response
     {
         $pictures = $city->getPictures();

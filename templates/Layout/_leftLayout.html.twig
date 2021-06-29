@@ -10,7 +10,7 @@
             </button>
         </a>
         {% for city in country.cities %}
-            <a href="{{ path('public_city_index', {'id': city.id}) }}">
+            <a href="{{ path('public_city_index', {'name': city.name}) }}">
                 <button type="button" class="left-item city">
                     {% if vich_uploader_asset(city, "iconFile") is not null %}
                         <img src="{{ vich_uploader_asset(city, "iconFile") }}" alt="{{ city.name }}" class="left-icon"

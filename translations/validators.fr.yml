@@ -20,6 +20,7 @@ constraints:
         lastnameNotBlank: "Veuillez remplir votre nom de famille"
     city:
         name:
+            notblank: "Le nom de la ville est obligatoire"
             minLength: "Le nom du pays est trop court"
         notblank: "Le nom de la ville ne peut pas resté vide"
         email:

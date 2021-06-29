@@ -76,4 +76,3 @@ function toggleNotif(itemCliquacle, path, urlReturn) {
     })
 }
 
-

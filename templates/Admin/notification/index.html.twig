@@ -1,11 +1,9 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "title.comment.index"|trans }}{% endblock %}
+{% block title %}{{ "title.notification.index"|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ "title.comment.index"|trans }}</h1>
+    <h1>{{ "title.notification.index"|trans }}</h1>
     {{ include('Admin/javascript/template_datatable.html.twig') }}
 {% endblock %}
-
-

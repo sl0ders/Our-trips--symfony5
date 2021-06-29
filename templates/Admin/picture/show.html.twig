@@ -5,7 +5,7 @@
 {% block body %}
     <div class="detail-picture-box">
         <div class="picture-part">
-            <img class="picture" src="{{ vich_uploader_asset(picture)|imagine_filter("large") }}"
+            <img class="picture" src="{{ vich_uploader_asset(picture) }}"
                  alt="{{ picture.picture.name }}">
             <button type="button" class="rotate" title="{{ "picture.text.return"|trans }}"><i class="fas fa-undo-alt"></i></button>*
         </div>

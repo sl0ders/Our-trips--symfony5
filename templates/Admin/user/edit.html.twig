@@ -1,12 +1,12 @@
 {% trans_default_domain "OurTripsTrans" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{{ "title.user.edit"|trans({"%lastname%": user.lastname, "%firstname%": user.firstname}) }}{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1>{{ "title.user.edit"|trans({"%lastname%": user.lastname, "%firstname%": user.firstname}) }}</h1>
 
-    {{ include('Admin/user/_form-new.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/user/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('admin_user_index') }}"><button class="warning"><i class="fas fa-arrow-alt-circle-left"></i></button></a>
 

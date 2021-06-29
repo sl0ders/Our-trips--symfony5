@@ -14,9 +14,16 @@
                 </div>
             </div>
             <div class="news-box-footer">
-               <a {% if is_granted('ROLE_USER') %} href="{{ path('public_picture_show', {'id': new.link.id}) }}" {% endif %}><img
-                            src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}"
-                            alt="{{ new.link.picture.name }}" width="200"></a>
+                {% if app.user and app.user.status == 1 %}
+               <a {% if is_granted('ROLE_USER') %} href="{{ path('public_picture_show', {'id': new.link.id}) }}" {% endif %}>
+                   <img src="{{ vich_uploader_asset(new.link)| imagine_filter("carre") }}" alt="{{ new.link.picture.name }}" width="200">
+               </a>
+                {% else %}
+                    <a class="pictures-square" onclick='$(".help_window").fadeIn().delay(2000).fadeOut()'>
+                        <img src="{{ vich_uploader_asset(new.link) | imagine_filter("carre") }}"
+                             alt="{{ new.link.createdAt|date("d/m/Y") }}" title="{{ new.link.city }}">
+                    </a>
+                {% endif %}
                 <em class="date">{{ new.createdAt | ago(locale="fr") }}</em>
             </div>
         </div>

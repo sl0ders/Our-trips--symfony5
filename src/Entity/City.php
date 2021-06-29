@@ -33,7 +33,9 @@ class City
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Length(min: 2, minMessage: 'constraints.city.name.minLength'), Assert\NotBlank(message: "constraints.city.name.notblank")]
+    #[
+        Length(min: 2, minMessage: 'constraints.city.name.minLength'),
+        Assert\NotBlank(message: "constraints.city.name.notblank")]
     private $name;
 
     /**

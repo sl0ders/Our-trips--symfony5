@@ -85,6 +85,11 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $disabledAt;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -312,6 +317,18 @@ class User implements UserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDisabledAt(): ?\DateTimeInterface
+    {
+        return $this->disabledAt;
+    }
+
+    public function setDisabledAt(?\DateTimeInterface $disabledAt): self
+    {
+        $this->disabledAt = $disabledAt;
 
         return $this;
     }

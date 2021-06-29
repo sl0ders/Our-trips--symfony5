@@ -19,16 +19,15 @@
                 </a>
             {% else %}
                 <div class="myProfile">
-                    <div class="hello">{{ "header.log.hello"|trans({"%firstname%": app.user.firstname}) }}</div>
-                    <a href="{{ path('app_show', {"id": app.user.id}) }}" class="nav-items">
+                    <a title="{{ "header.title.myProfile" | trans }}" href="{{ path('app_show', {"id": app.user.id}) }}" class="nav-items">
                         <button><i class="far fa-user"></i></button>
                     </a>
                 </div>
                 {% if is_granted("ROLE_ADMIN") %}
-                    <a href="{{ path('admin_settings_index') }}" class="nav-items">
+                    <a title="{{ "header.title.parameter" | trans }}" href="{{ path('admin_settings_index') }}" class="nav-items">
                         <button><i class="fas fa-cogs"></i></button>
                     </a>
-                    <div class="nav-items notif">
+                    <div class="nav-items notif" title="{{ "header.title.notification" | trans }}">
                         <button><i class="far fa-bell"></i><small class="">{{ notifNotRead }}</small></button>
                     </div>
                     <ul class="notification-list">
@@ -47,12 +46,12 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                <a href="{{ path('app_logout') }}">
+                <a title="{{ "header.title.logout" | trans }}" href="{{ path('app_logout') }}">
                     <button class="nav-items logout"><i class="fas fa-sign-out-alt"></i></button>
                 </a>
             {% endif %}
         </div>
-        <h1 class="title">{{ "header.title"|trans }}</h1>
+        <h1 class="title">{{ "header.h1"|trans }}</h1>
     </div>
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"

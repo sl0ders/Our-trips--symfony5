@@ -1,0 +1,19 @@
+---   Ne pas utiliser le status pour lock unlock un utilisateur créer un autre champ disableAt !!!
+---   Ajout du cursor pointer sur les boutons
+---   Changer l'icon cadna dans l'index des utilisateur, si l'utilisateur est bloqué
+---  Corriger l'erreur "Impossible de trouver le modèle "Admin/user/_form-new.html.twig""
+---   Liste des news a mettre en place
+--- refactorisation d'un template datatable
+---   Séparé la phrase d'acceuil "Bonjour... " du bouton de profile
+---   Lors de la modification d'un user dans l'admin le mot de passe est proposé a supprimé
+---   Bouton retour sur la modification du mot de passe non fonctionnel
+---   Préciser que les photos ne sont visibles que pour les personnes aillant validé leur adresse email
+-   Passer sur une archi api pour l'affichage des photos
+-   modifier les addresse de  https://localhost:8000/city/1?page=3 a https://localhost:8000/city/angleterre?page=3 par exemple
+-   Créer une news par defaut l'ors de l'ajout d'image dans une ville (avec la premier image si il y en a beaucoup / si la ville ou le pays est créer créer une news annoncant la l'arrivé prochaine de photo
+-!   Corriger l'erreure lors du telechargement multiple lors de l'ajout d'une ville
+-   Mettre en place les status qui reste a zero
+-   Mettre en place le systeme de mailing
+-   Personnaliser la home page si administrateur avec detail des commentaires, des visites...
+-   Ameliorer le rendu de la page d'edition des utilisateurs
+-   Changer la couleur de texte des nom de ville sur les images

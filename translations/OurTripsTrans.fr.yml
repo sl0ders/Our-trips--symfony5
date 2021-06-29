@@ -30,8 +30,10 @@ title:
         create: "Creation d'un nouvelle utilisateur"
         index: 'Index des utilisateurs'
         show: "Détail de mon profil"
-        edit: "Édition du profil"
+        edit: "Édition du profil de %firstname% %lastname%"
         changePassword: 'Modification du mot de passe'
+        unlock: 'Debloquer'
+        lock: "Bloquer l'utilisateur"
     comment:
         header: 'Commentaire'
         index: 'Index des commentaires'
@@ -47,8 +49,13 @@ header:
         logout: 'Se déconnecter'
         admin: 'Administration'
         profile: 'Voir mon profil'
-        hello: 'Bonjour %firstname%'
-    title: 'Nos Voyages'
+        hello: 'Bonjour %firstname% '
+    title:
+        myProfile: "Mon profile"
+        parameter: "Paramètres"
+        notification: "Notifications"
+        logout: "Déconnection"
+    h1: 'Nos Voyages'
 
 index:
     title: 'Pourquoi ce site ?'
@@ -127,7 +134,7 @@ form:
             content: "Contenu de la news"
     comment:
         placeholder:
-            content : "Entrez un commentaire en lien avec la photo"
+            content: "Entrez un commentaire en lien avec la photo"
         label:
             show: 'Visualiser le commentaire'
             edit: 'Éditer le commentaire'
@@ -139,7 +146,8 @@ user:
     status:
         standby: 'En attente de confirmation'
         confirmed: 'Adresse email confirmé'
-        blocked: 'Utilisateur bloqué'
+        locked: 'Utilisateur bloqué'
+        unlocked: 'Utilisateur debloquer'
     role:
         admin: 'Administrateur'
         user: 'Utilisateur'
@@ -244,3 +252,5 @@ notification:
     read: 'lu'
 button:
     adminMode: 'Mode administration'
+error:
+    not-login: 'Vous devez être connecté pour agrandire la photo'

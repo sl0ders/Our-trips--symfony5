@@ -1,5 +1,10 @@
 {% trans_default_domain "OurTripsTrans" %}
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save'|trans) }}</button>
-{{ form_end(form) }}
+<div class="form-outbox">
+    {{ form_start(form) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.return, {"attr": {"class": "return"}}) }}
+    {{ form_end(form) }}
+</div>
+

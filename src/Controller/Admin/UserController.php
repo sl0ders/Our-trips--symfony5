@@ -6,9 +6,11 @@ use App\Datatable\newsDatatable;
 use App\Datatable\UserDatatable;
 use App\Entity\Notification;
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Services\NotificationServices;
+use DateTime;
 use Exception;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
 use Sg\DatatablesBundle\Response\DatatableResponse;
@@ -86,11 +88,19 @@ class UserController extends AbstractController
     #[Route("block/{id}", name: "admin_user_block", requirements: ["id" => '\d+'])]
     public function blockUser(User $user, TranslatorInterface $translator): RedirectResponse
     {
-        $user->setStatus(0);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-        $this->addFlash("success", $translator->trans("user.status.blocked", [], "OurTripsTrans"));
+        if ($user->getDisabledAt() === null) {
+            $user->setDisabledAt(new DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("warning", $translator->trans("user.status.locked", [], "OurTripsTrans"));
+        } else {
+            $user->setDisabledAt(null);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("success", $translator->trans("user.status.unlocked", [], "OurTripsTrans"));
+        }
         return $this->redirectToRoute("admin_user_index");
     }
 
@@ -102,7 +112,7 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'admin_user_edit', methods: ["GET", "POST"])]
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

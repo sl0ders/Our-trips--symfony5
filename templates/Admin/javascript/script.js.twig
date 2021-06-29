@@ -13,6 +13,7 @@ $(document).ready(() => {
     buttonAdmin.click(() => {
         adminMod === true ? adminMod = false : adminMod = true
         if (adminMod === true) {
+
             aPciture.removeAttr("href")
             aPciture.css("cursor", "pointer")
             adminOption.toggle("low")

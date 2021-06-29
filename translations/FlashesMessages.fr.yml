@@ -1,4 +1,6 @@
-success: "succès"
+danger: "Danger !"
+warning: "Attention !"
+success: "Manoeuvre reussite"
 flashes:
     email:
         firstStapeSuccessfully: "Merci de vous etre inscrit %firstname% %lastname%, Veuillez maintenant valider votre adresse de messagerie"

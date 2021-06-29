@@ -50,7 +50,7 @@ class SecurityController extends AbstractController
      * @throws Exception
      */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request,NotificationServices $notificationServices, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder, MailService $mailService): RedirectResponse|Response
+    public function register(Request $request, NotificationServices $notificationServices, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder, MailService $mailService): RedirectResponse|Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -110,7 +110,7 @@ class SecurityController extends AbstractController
     #[Route('/show/{id}', name: 'app_show')]
     public function show(User $user): Response
     {
-        return $this->render("security/profile.html.twig", [
+        return $this->render("public/user/profile.html.twig", [
             "user" => $user
         ]);
     }
@@ -126,13 +126,15 @@ class SecurityController extends AbstractController
     public function changeStatus(User $user, TranslatorInterface $translator, NotificationServices $notificationServices): RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
-        $user->setStatus(1);
-        $em->persist($user);
-        $message = $translator->trans("flashes.email.confirmed", ["%firstname%" => $user->getFirstname(), "%lastname%" => $user->getLastname()], "FlashesMessages");
-        $this->addFlash("success", $message);
-        $notifContent = $translator->trans("notification.newMember", [], "OurTripsTrans");
-        $notificationServices->createNotification($notifContent, ["app_show", $user->getId()]);
-        $em->flush();
+        if ($user->getStatus() == 0) {
+            $user->setStatus(1);
+            $em->persist($user);
+            $message = $translator->trans("flashes.email.confirmed", ["%firstname%" => $user->getFirstname(), "%lastname%" => $user->getLastname()], "FlashesMessages");
+            $this->addFlash("success", $message);
+            $notifContent = $translator->trans("notification.newMember", [], "OurTripsTrans");
+            $notificationServices->createNotification($notifContent, ["app_show", $user->getId()]);
+            $em->flush();
+        }
         return $this->redirectToRoute("home");
     }
 
