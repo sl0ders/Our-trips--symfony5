@@ -17,8 +17,6 @@
 <body>
 <header>
     {{ render(controller('App\\Controller\\LayoutBundleController::headerAction')) }}
-    {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
-
 </header>
 
 <main class="filter">
@@ -29,8 +27,10 @@
         <div class="help_window">
             <p class="help-text">{{ "error.not-login" |trans }}</p>
         </div>
+        {% include 'Layout/Flashes/_inspiniaFlashes.html.twig' %}
         {% block body %}{% endblock %}
     </div>
+
     <div class="right-side">
         {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
     </div>

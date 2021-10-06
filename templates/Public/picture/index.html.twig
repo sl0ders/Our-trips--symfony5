@@ -28,7 +28,7 @@
                      alt="{{ picture.createdAt|date("d/m/Y") }}" title="{{ picture.city }}">
             </a>
         {% endfor %}
-        {% if is_granted("ROLE_ADMIN") %}
+        {% if is_granted("ROLE_ADMIN") and picture is defined %}
             <a href="{{ path('admin_picture_new') }}"
                class="pictures-square empty">{{ "picture.text.addPicture"|trans }}</a>
             <a href="{{ path('admin_picture_addFolder', {"id": picture.city.id}) }}" class="pictures-square empty">{{ "picture.text.addPictureFolder"|trans }}</a>

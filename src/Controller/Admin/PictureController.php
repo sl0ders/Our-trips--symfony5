@@ -52,31 +52,46 @@ class PictureController extends AbstractController
 
     /**
      * @param Request $request
+     * @param UserRepository $userRepository
      * @return Response
      * @throws Exception
      */
     #[Route('/new', name: 'admin_picture_new', methods: ["GET", "POST"])]
-    public function new(Request $request): Response
+    public function new(Request $request, UserRepository $userRepository): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $picture = new Picture();
         $form = $this->createForm(PictureType::class, $picture);
         $form->handleRequest($request);
+        /** @var City $city */
+        $city = $form['newCity']->getData();
         if ($form->isSubmitted() && $form->isValid()) {
-            $picture_info = exif_read_data($form["pictureFile"]->getData()->getLinkTarget());
-
-            if (isset($picture_info['DateTimeOriginal'])) {
-                $createdAt = new DateTime($picture_info['DateTimeOriginal']);
-            } else {
-                $createdAt = new DateTime();
+            $files = $form->getData()->getPictureFile();
+            if (isset($files)) {
+                if (is_array($files)) {
+                    foreach ($files as $file) {
+                        $picture_info = exif_read_data($file->getLinkTarget());
+                        $fileName = ($file->getClientOriginalName());
+                        $file->move(
+                            $this->getParameter("image_directory"),
+                            $fileName
+                        );
+                        $picture = new Picture();
+                        $this->extracted($picture_info, $userRepository, $picture, $city, $fileName, $file, $entityManager);
+                    }
+                }
+                else {
+                    $picture = new Picture();
+                    $picture_info = exif_read_data($files->getLinkTarget());
+                    $fileName = ($files->getClientOriginalName());
+                    $files->move(
+                        $this->getParameter("image_directory"),
+                        $fileName
+                    );
+                    $this->extracted($picture_info, $userRepository, $picture, $city, $fileName, $files, $entityManager);
+                }
             }
-            $picture->setPostAt(new DateTime());
-            $picture->setCreatedAt($createdAt);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($picture);
             if ($form['newCity']->getData()->getName() != null) {
-                /** @var City $city */
-                $city = $form['newCity']->getData();
-                $entityManager->persist($city);
                 $picture->setCity($form['newCity']->getData());
                 $entityManager->persist($city);
                 $entityManager->persist($picture);
@@ -154,7 +169,6 @@ class PictureController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 
 
     /**
@@ -254,5 +268,47 @@ class PictureController extends AbstractController
         $response = new Response(json_encode($pictures));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @param bool|array $picture_info
+     * @param UserRepository $userRepository
+     * @param Picture $picture
+     * @param City $city
+     * @param $fileName
+     * @param $files
+     * @param \Doctrine\Persistence\ObjectManager $entityManager
+     * @throws Exception
+     */
+    public function extracted(bool|array $picture_info, UserRepository $userRepository, Picture $picture, City $city, $fileName, $files, \Doctrine\Persistence\ObjectManager $entityManager): void
+    {
+        if (isset($picture_info["Make"])) {
+            if ($picture_info["Make"] == "iphone") {
+                $userRepository->findBy(["firstname" => "Anne-charlotte"]);
+                $author = $userRepository->findOneBy(["firstname" => "Anne charlotte"]);
+                $picture->setAuthor($author);
+            } else {
+                $author = $userRepository->findOneBy(["firstname" => "Quentin"]);
+                $picture->setAuthor($author);
+            }
+        }
+        if (isset($picture_info['DateTimeOriginal'])) {
+            $createdAt = new DateTime($picture_info['DateTimeOriginal']);
+        } else {
+            $createdAt = new DateTime();
+        }
+        if (isset($picture_info['ImageWidth']) && isset($picture_info['ImageLength'])) {
+            $dimension = [$picture_info['ImageWidth'] . "," . $picture_info['ImageLength']];
+            $picture->getPicture()->setDimensions($dimension);
+        }
+        $picture->setCity($city);
+        $picture->setPostAt(new DateTime());
+        $picture->setCreatedAt($createdAt);
+        $picture->getPicture()->setName($fileName);
+        $picture->getPicture()->setOriginalName($files->getClientOriginalName());
+        $picture->getPicture()->setMimeType($picture_info["MimeType"]);
+        $picture->getPicture()->setSize($picture_info["FileSize"]);
+        $city->addPicture($picture);
+        $entityManager->persist($city);
     }
 }

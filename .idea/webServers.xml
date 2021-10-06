@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d6af7e70-c1cb-4d5c-bc3b-68fd8aa3a2b7" name="Epson-project" url="http://home756786028.1and1-data.host">
-        <fileTransfer rootFolder="/Epson-Project" host="home756786028.1and1-data.host" port="21">
+        <fileTransfer rootFolder="/ourtrips" accessType="SFTP" host="home756786028.1and1-data.host" port="22" sshConfigId="30849b7e-a6a0-4e68-9c66-81f2ce436cff" sshConfig="u95153084@home756786028.1and1-data.host:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

@@ -51,7 +51,7 @@ class City
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="city", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="city", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $pictures;
 

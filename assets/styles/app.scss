@@ -509,6 +509,7 @@ body {
 
   main {
     width: 100%;
+    min-height: 53.2vh;
     display: flex;
     justify-content: space-around;
 
@@ -1019,6 +1020,7 @@ body {
           width: 9vw;
           height: 35px;
           float: right;
+          background: rgba(9, 72, 96, 0.6)
         }
 
         .left-icon {
@@ -1100,7 +1102,7 @@ body {
   }
 
   footer {
-    height: 20vh;
+    min-height: 20vh;
   }
 }
 
